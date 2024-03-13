@@ -23,7 +23,7 @@ class LyricStoreRequest extends FormRequest
     {
         return [
             'song_id' => 'required|exists:songs,id',
-            'lyrics' => 'required|string'
+            'lyrics' => 'required|string',
         ];
     }
 }

@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\LyricStoreRequest;
 use App\Http\Requests\LyricUpdateRequest;
 use App\Models\Lyric;
-use App\Http\Requests\StoreLyricRequest;
-use App\Http\Requests\UpdateLyricRequest;
 use Exception;
 use Illuminate\Support\Facades\DB;
 
