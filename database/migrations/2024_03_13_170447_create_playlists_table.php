@@ -11,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('lyrics', function (Blueprint $table) {
+        Schema::create('playlists', function (Blueprint $table) {
             $table->uuid('id')->primary()->unique()->index();
-            $table->foreignUuid('song_id')->constrained();
-            $table->longText('lyrics');
+            $table->foreignUuid('user_id')->constrained();
+            $table->json('song_ids')->nullable();
+            $table->string('url')->nullable();
+            $table->dateTime('url_expired')->nullable();
             $table->auditColumns();
         });
     }
@@ -24,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('lyrics');
+        Schema::dropIfExists('playlists');
     }
 };
