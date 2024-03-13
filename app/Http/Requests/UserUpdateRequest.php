@@ -3,9 +3,9 @@
 namespace App\Http\Requests;
 
 use App\Enums\REGXEnum;
+use App\Enums\UserStatusEnum;
 use App\Helpers\Enum;
 use App\Models\User;
-use App\Enums\UserStatusEnum;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UserUpdateRequest extends FormRequest
@@ -36,7 +36,7 @@ class UserUpdateRequest extends FormRequest
             'profile' => 'nullable | image:mimes:jpeg,png,jpg,gif|max:2048',
             'email' => "email | unique:users,email,$userId",
             'phone' => ["unique:users,phone,$userId", "regex:$mobileRule"],
-            'status' => " nullable | in:$adminStatusEnum "
+            'status' => " nullable | in:$adminStatusEnum ",
         ];
     }
 }

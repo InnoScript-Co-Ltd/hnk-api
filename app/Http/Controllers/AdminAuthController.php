@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Admin;
 use App\Enums\AdminStatusEnum;
 use App\Http\Requests\AdminLoginRequest;
-use Illuminate\Http\Request;
+use App\Models\Admin;
 use Illuminate\Support\Facades\DB;
 
 class AdminAuthController extends Controller
@@ -23,10 +22,6 @@ class AdminAuthController extends Controller
         DB::beginTransaction();
 
         try {
-            if (isset($payload['phone'])) {
-                $user = Admin::where(['phone' => $payload['phone']])->first();
-            }
-
             if (isset($payload['email'])) {
                 $user = Admin::where(['email' => $payload['email']])->first();
             }
@@ -100,7 +95,6 @@ class AdminAuthController extends Controller
             throw $e;
         }
     }
-
 
     /**
      * Create new token for user login

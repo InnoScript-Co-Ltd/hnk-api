@@ -23,7 +23,7 @@ class GenresUpdateRequest extends FormRequest
     {
         return [
             'name' => 'nullable | string',
-            'rate' => 'nullable | integer'
+            'rate' => 'nullable | integer',
         ];
     }
 }

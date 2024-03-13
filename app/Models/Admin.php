@@ -3,19 +3,19 @@
 namespace App\Models;
 
 use App\Traits\BasicAudit;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Tymon\JWTAuth\Contracts\JWTSubject;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Admin extends Authenticatable implements JWTSubject
 {
-    use HasApiTokens, HasFactory, HasUuids, Notifiable, BasicAudit, SoftDeletes;
+    use BasicAudit, HasApiTokens, HasFactory, HasUuids, Notifiable, SoftDeletes;
 
-        /**
+    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
@@ -25,10 +25,10 @@ class Admin extends Authenticatable implements JWTSubject
         'email',
         'phone',
         'password',
-        'status'
+        'status',
     ];
 
-    protected $table = "admins";
+    protected $table = 'admins';
 
     /**
      * The attributes that should be hidden for serialization.
@@ -50,12 +50,10 @@ class Admin extends Authenticatable implements JWTSubject
         'password' => 'hashed',
     ];
 
-
     public function image()
     {
         return $this->morphOne(Image::class, 'imageable');
     }
-
 
     public function getJWTIdentifier()
     {
@@ -66,5 +64,4 @@ class Admin extends Authenticatable implements JWTSubject
     {
         return [];
     }
-
 }

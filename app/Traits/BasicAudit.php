@@ -8,7 +8,7 @@ trait BasicAudit
     {
         $self = new static();
 
-        if(auth()->id()){
+        if (auth()->id()) {
             $userId = auth()->id();
         } else {
             $userId = null;

@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Http\Requests\UserStoreRequest;
 use App\Http\Requests\UserUpdateRequest;
-use Illuminate\Http\Request;
+use App\Models\User;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
@@ -26,7 +27,7 @@ class UserController extends Controller
 
             return $this->success('User list is successfully retrived', $user);
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             DB::rollback();
             throw $e;
         }
@@ -34,15 +35,21 @@ class UserController extends Controller
 
     public function store(UserStoreRequest $request)
     {
+
         $payload = collect($request->validated());
 
         try {
+            $payload['token_expired'] = Carbon::now()->addYear();
+
+            // $jsonEncode = json_encode($payload->toArray(), true);
+
+            $payload['token'] = Crypt::encrypt($payload['email']);
             $user = User::create($payload->toArray());
             DB::commit();
 
             return $this->success('User is created successfully', $user);
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             DB::rollback();
             throw $e;
         }
@@ -57,7 +64,7 @@ class UserController extends Controller
 
             return $this->success('User detail is successfully retrived', $user);
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             DB::rollback();
             throw $e;
         }
@@ -87,7 +94,7 @@ class UserController extends Controller
 
             return $this->success('User is updated successfully', $user);
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             DB::rollback();
             throw $e;
         }
@@ -105,7 +112,7 @@ class UserController extends Controller
 
             return $this->success('User is deleted successfully', $user);
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             DB::rollback();
             throw $e;
         }
