@@ -36,5 +36,31 @@ Route::middleware('jwt')->group(function () {
         Route::delete('/{id}', 'UserController@destroy');
     });
 
+    Route::group(['prefix' => 'singer'], function () {
+        Route::get('/', 'SingerController@index');
+        Route::post('/', 'SingerController@store');
+        Route::get('/{id}', 'SingerController@show');
+        Route::post('/{id}', 'SingerController@update');
+        Route::delete('/{id}', 'SingerController@destroy');
+    });
+
+    Route::group(['prefix' => 'genres'], function () {
+        Route::get('/', 'GenresController@index');
+        Route::post('/', 'GenresController@store');
+        Route::get('/{id}', 'GenresController@show');
+        Route::post('/{id}', 'GenresController@update');
+        Route::delete('/{id}', 'GenresController@destroy');
+    });
+
+    Route::group(['prefix' => 'song'], function () {
+        Route::get('/', 'SongController@index');
+        Route::post('/', 'SongController@store');
+        Route::get('/{id}', 'SongController@show');
+        Route::post('/{id}', 'SongController@update');
+        Route::delete('/{id}', 'SongController@destroy');
+    }); 
+
+
+
 
 });
