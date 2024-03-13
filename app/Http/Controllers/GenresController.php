@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Genres;
 use App\Http\Requests\GenresStoreRequest;
 use App\Http\Requests\GenresUpdateRequest;
-use Illuminate\Http\Request;
+use App\Models\Genres;
 use Illuminate\Support\Facades\DB;
 
 class GenresController extends Controller
@@ -36,7 +35,7 @@ class GenresController extends Controller
         $payload = collect($request->validated());
 
         try {
-            
+
             $genres = Genres::create($payload->toArray());
             DB::commit();
 
@@ -101,5 +100,4 @@ class GenresController extends Controller
             throw $e;
         }
     }
-
 }

@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Singer;
 use App\Http\Requests\SingerStoreRequest;
 use App\Http\Requests\SingerUpdateRequest;
-use Illuminate\Http\Request;
+use App\Models\Singer;
 use Illuminate\Support\Facades\DB;
 
 class SingerController extends Controller
@@ -37,7 +36,7 @@ class SingerController extends Controller
         $payload = collect($request->validated());
 
         try {
-            
+
             $singer = Singer::create($payload->toArray());
             DB::commit();
 
@@ -111,5 +110,4 @@ class SingerController extends Controller
             throw $e;
         }
     }
-
 }

@@ -4,17 +4,16 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Traits\BasicAudit;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Database\Eloquent\SoftDeletes;
-
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, HasUuids, Notifiable, BasicAudit, SoftDeletes;
+    use BasicAudit, HasApiTokens, HasFactory, HasUuids, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -28,17 +27,21 @@ class User extends Authenticatable
         'dob',
         'is_accept',
         'token',
-        'token_expired'
+        'token_expired',
+        'gender',
     ];
 
-    protected $table = "users";
+    protected $table = 'users';
 
+    protected $casts = [
+        'dob' => 'date',
+        'is_accept' => 'boolean',
+    ];
 
     public function image()
     {
         return $this->morphOne(Image::class, 'imageable');
     }
-
 
     public function getJWTIdentifier()
     {

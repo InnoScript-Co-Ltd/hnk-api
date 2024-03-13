@@ -2,19 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\SongStoreRequest;
-use App\Http\Requests\SongUpdateRequest;
-use App\Models\Song;
+use App\Http\Requests\OutletStoreRequest;
+use App\Http\Requests\OutletUpdateRequest;
+use App\Models\Outlet;
+use Exception;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class SongController extends Controller
+class OutletController extends Controller
 {
     public function index()
     {
         DB::beginTransaction();
 
         try {
-            $song = Song::searchQuery()
+            $outlets = Outlet::searchQuery()
                 ->sortingQuery()
                 ->filterQuery()
                 ->filterDateQuery()
@@ -22,7 +24,7 @@ class SongController extends Controller
 
             DB::commit();
 
-            return $this->success('Song list is successfully retrived', $song);
+            return $this->success('outlet list is successfully retrived', $outlets);
 
         } catch (Exception $e) {
             DB::rollback();
@@ -30,16 +32,16 @@ class SongController extends Controller
         }
     }
 
-    public function store(SongStoreRequest $request)
+    public function store(OutletStoreRequest $request)
     {
         $payload = collect($request->validated());
 
         try {
 
-            $song = Song::create($payload->toArray());
+            $outlet = Outlet::create($payload->toArray());
             DB::commit();
 
-            return $this->success('Song is created successfully', $song);
+            return $this->success('Outlet is created successfully', $outlet);
 
         } catch (Exception $e) {
             DB::rollback();
@@ -51,10 +53,10 @@ class SongController extends Controller
     {
         DB::beginTransaction();
         try {
-            $song = Song::findOrFail($id);
+            $outlet = Outlet::findOrFail($id);
             DB::commit();
 
-            return $this->success('Song detail is successfully retrived', $song);
+            return $this->success('Outlet detail is successfully retrived', $outlet);
 
         } catch (Exception $e) {
             DB::rollback();
@@ -62,20 +64,20 @@ class SongController extends Controller
         }
     }
 
-    public function update(SongUpdateRequest $request, $id)
+    public function update(OutletUpdateRequest $request, $id)
     {
 
         $payload = collect($request->validated());
         DB::beginTransaction();
         try {
 
-            $song = Song::findOrFail($id);
+            $outlet = Outlet::findOrFail($id);
 
-            $song->update($payload->toArray());
+            $outlet->update($payload->toArray());
 
             DB::commit();
 
-            return $this->success('Song is updated successfully', $song);
+            return $this->success('Outlet is updated successfully', $outlet);
 
         } catch (Exception $e) {
             DB::rollback();
@@ -89,11 +91,11 @@ class SongController extends Controller
         DB::beginTransaction();
         try {
 
-            $song = Song::findOrFail($id);
-            $song->delete($id);
+            $outlet = Outlet::findOrFail($id);
+            $outlet->delete($id);
             DB::commit();
 
-            return $this->success('Genres is deleted successfully', $song);
+            return $this->success('Outlet is deleted successfully', $outlet);
 
         } catch (Exception $e) {
             DB::rollback();

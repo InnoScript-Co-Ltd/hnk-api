@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
 use App\Enums\REGXEnum;
+use Illuminate\Foundation\Http\FormRequest;
 
 class AdminLoginRequest extends FormRequest
 {
@@ -25,8 +25,7 @@ class AdminLoginRequest extends FormRequest
         $mobileRule = REGXEnum::MOBILE_NUMBER->value;
 
         return [
-            'email' => ['required_without:phone', 'email'],
-            'phone' => ['required_without:email', 'string', "regex:$mobileRule"],
+            'email' => ['required', 'email'],
             'password' => 'required | string',
         ];
     }

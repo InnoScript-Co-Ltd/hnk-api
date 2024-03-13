@@ -8,13 +8,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Genres extends Model
+class Outlet extends Model
 {
-    use BasicAudit, HasFactory, HasUuids, SoftDeletes;
+    use HasFactory, HasUuids, BasicAudit, SoftDeletes;
 
-    protected $table = 'genres';
+    protected $table = 'outlets';
 
     protected $fillable = [
-        'name', 'rate',
+        'name', 'phone', 'date', 'address', 'time', 'promotion', 'promo_description', 'latitude', 'longitude'
     ];
 }

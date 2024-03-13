@@ -2,10 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\Admin;
 use App\Enums\AdminStatusEnum;
 use App\Helpers\Enum;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Admin;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -27,7 +26,7 @@ class AdminSeeder extends Seeder
             'phone' => '9421038123',
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
-            'status' => $adminStatus[1]
+            'status' => $adminStatus[1],
         ];
 
         try {

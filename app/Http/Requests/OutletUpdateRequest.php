@@ -2,10 +2,9 @@
 
 namespace App\Http\Requests;
 
-use App\Enums\REGXEnum;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserStoreRequest extends FormRequest
+class OutletUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,15 +21,16 @@ class UserStoreRequest extends FormRequest
      */
     public function rules(): array
     {
-        $mobileRule = REGXEnum::MOBILE_NUMBER->value;
-
         return [
-            'name' => 'required | string | max: 24 | min: 8',
-            'email' => 'required | email | unique:users,email',
-            'phone' => ['required', 'unique:users,phone', "regex:$mobileRule"],
-            'is_accept' => ['required', 'boolean'],
-            'dob' => ['required', 'date'],
-            'gender' => ['required', 'string'],
+            'name' => 'nullable|string|max:255',
+            'phone' => 'nullable|string|max:255',
+            'address' => 'nullable|string',
+            'date' => 'nullable|date',
+            'time' => 'nullable|string|max:255',
+            'promotion' => 'nullable|string|max:255',
+            'promo_description' => 'nullable|string',
+            'latitude' => 'nullable|numeric',
+            'longitude' => 'nullable|numeric',
         ];
     }
 }
