@@ -10,11 +10,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Lyric extends Model
 {
-    use HasFactory, HasUuids, BasicAudit, SoftDeletes;
+    use BasicAudit, HasFactory, HasUuids, SoftDeletes;
 
     protected $table = 'lyrics';
 
     protected $fillable = [
-        'name', 'song_id', 'lyrics'
+        'name', 'song_id', 'lyrics',
     ];
 }

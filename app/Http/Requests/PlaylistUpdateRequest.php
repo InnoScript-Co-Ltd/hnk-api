@@ -25,7 +25,7 @@ class PlaylistUpdateRequest extends FormRequest
             'user_id' => 'required|exists:users,id',
             'song_ids' => 'nullable|array',
             'url' => 'nullable|string',
-            'url_expired' => 'nullable|date'
+            'url_expired' => 'nullable|date',
         ];
     }
 }
