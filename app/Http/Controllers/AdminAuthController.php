@@ -40,6 +40,7 @@ class AdminAuthController extends Controller
             }
 
             $token = auth()->guard('api')->attempt($payload->toArray());
+
             DB::commit();
 
             if ($token) {
