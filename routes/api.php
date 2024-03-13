@@ -62,4 +62,12 @@ Route::middleware('jwt')->group(function () {
         Route::delete('/{id}', 'SongController@destroy');
     });
 
+    Route::group(['prefix' => 'outlet'], function () {
+        Route::get('/', 'OutletController@index');
+        Route::post('/', 'OutletController@store');
+        Route::get('/{id}', 'OutletController@show');
+        Route::put('/{id}', 'OutletController@update');
+        Route::delete('/{id}', 'OutletController@destroy');
+    });
+
 });
