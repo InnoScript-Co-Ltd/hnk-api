@@ -31,7 +31,7 @@ class AdminAuthController extends Controller
                 $user = Admin::where(['email' => $payload['email']])->first();
             }
 
-            if ($admin->status !== AdminStatusEnum::ACTIVE->value) {
+            if ($user->status !== AdminStatusEnum::ACTIVE->value) {
                 return $this->badRequest('Account is not active');
             }
 

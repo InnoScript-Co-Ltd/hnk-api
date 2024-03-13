@@ -17,10 +17,10 @@ return new class extends Migration
             $table->string('name');
             $table->string('phone')->unique()->nullable()->default(null);
             $table->string('email')->unique()->nullable()->default(null);
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password')->nullable()->default(null);
-            $table->json('facebook_login')->nullable()->default(null);
-            $table->string('status')->default(UserStatusEnum::PENDING->value);
+            $table->date('dob')->nullable()->default(null);
+            $table->boolean('is_accept')->nullabel()->default(null);
+            $table->longText('token')->nullable()->default(null);
+            $table->date('token_expired')->nullable()->default(null);
             $table->rememberToken();
             $table->auditColumns();
         });
