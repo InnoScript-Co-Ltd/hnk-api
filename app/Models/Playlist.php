@@ -10,15 +10,15 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Playlist extends Model
 {
-    use HasFactory, HasUuids, BasicAudit, SoftDeletes;
+    use BasicAudit, HasFactory, HasUuids, SoftDeletes;
 
     protected $table = 'playlists';
 
     protected $fillable = [
-        'user_id', 'song_ids', 'url', 'url_expired'
+        'user_id', 'song_ids', 'url', 'url_expired',
     ];
 
     protected $casts = [
-        'song_ids' => 'array'
+        'song_ids' => 'array',
     ];
 }

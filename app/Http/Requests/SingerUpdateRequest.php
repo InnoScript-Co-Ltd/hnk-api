@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Singer;
 use Illuminate\Foundation\Http\FormRequest;
 
 class SingerUpdateRequest extends FormRequest
@@ -21,8 +22,11 @@ class SingerUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
+        $singer = Singer::findOrFail(request('id'));
+        $singerId = $singer->id;
+
         return [
-            'name' => 'nullable | string',
+            'name' => "nullable | string | unique:singer,name,$singerId",
         ];
     }
 }

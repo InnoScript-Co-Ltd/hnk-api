@@ -25,7 +25,7 @@ class SingerController extends Controller
 
             return $this->success('Singer list is successfully retrived', $singer);
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             DB::rollback();
             throw $e;
         }
@@ -42,7 +42,7 @@ class SingerController extends Controller
 
             return $this->success('Singer is created successfully', $singer);
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             DB::rollback();
             throw $e;
         }
@@ -57,7 +57,7 @@ class SingerController extends Controller
 
             return $this->success('Singer detail is successfully retrived', $singer);
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             DB::rollback();
             throw $e;
         }
@@ -87,7 +87,7 @@ class SingerController extends Controller
 
             return $this->success('Singer is updated successfully', $singer);
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             DB::rollback();
             throw $e;
         }
@@ -105,7 +105,7 @@ class SingerController extends Controller
 
             return $this->success('Singer is deleted successfully', $singer);
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             DB::rollback();
             throw $e;
         }

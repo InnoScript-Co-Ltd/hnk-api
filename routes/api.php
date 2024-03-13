@@ -22,6 +22,37 @@ Route::group(['prefix' => 'user'], function () {
     Route::get('/{id}', 'UserController@show');
 });
 
+Route::group(['prefix' => 'singer'], function () {
+    Route::get('/', 'SingerController@index');
+    Route::get('/{id}', 'SingerController@show');
+});
+
+Route::group(['prefix' => 'genres'], function () {
+    Route::get('/', 'GenresController@index');
+    Route::get('/{id}', 'GenresController@show');
+});
+
+Route::group(['prefix' => 'song'], function () {
+    Route::get('/', 'SongController@index');
+    Route::get('/{id}', 'SongController@show');
+});
+
+Route::group(['prefix' => 'outlet'], function () {
+    Route::get('/', 'OutletController@index');
+    Route::get('/{id}', 'OutletController@show');
+});
+
+Route::group(['prefix' => 'lyric'], function () {
+    Route::get('/', 'LyricController@index');
+    Route::get('/{id}', 'LyricController@show');
+});
+
+Route::group(['prefix' => 'playlist'], function () {
+    Route::get('/', 'PlaylistController@index');
+    Route::post('/', 'PlaylistController@store');
+    Route::get('/{id}', 'PlaylistController@show');
+});
+
 Route::middleware('jwt')->group(function () {
 
     Route::group(['prefix' => 'admin'], function () {
@@ -39,49 +70,36 @@ Route::middleware('jwt')->group(function () {
     });
 
     Route::group(['prefix' => 'singer'], function () {
-        Route::get('/', 'SingerController@index');
         Route::post('/', 'SingerController@store');
-        Route::get('/{id}', 'SingerController@show');
         Route::post('/{id}', 'SingerController@update');
         Route::delete('/{id}', 'SingerController@destroy');
     });
 
     Route::group(['prefix' => 'genres'], function () {
-        Route::get('/', 'GenresController@index');
         Route::post('/', 'GenresController@store');
-        Route::get('/{id}', 'GenresController@show');
         Route::post('/{id}', 'GenresController@update');
         Route::delete('/{id}', 'GenresController@destroy');
     });
 
     Route::group(['prefix' => 'song'], function () {
-        Route::get('/', 'SongController@index');
         Route::post('/', 'SongController@store');
-        Route::get('/{id}', 'SongController@show');
         Route::post('/{id}', 'SongController@update');
         Route::delete('/{id}', 'SongController@destroy');
     });
 
     Route::group(['prefix' => 'outlet'], function () {
-        Route::get('/', 'OutletController@index');
         Route::post('/', 'OutletController@store');
-        Route::get('/{id}', 'OutletController@show');
         Route::put('/{id}', 'OutletController@update');
         Route::delete('/{id}', 'OutletController@destroy');
     });
 
     Route::group(['prefix' => 'lyric'], function () {
-        Route::get('/', 'LyricController@index');
         Route::post('/', 'LyricController@store');
-        Route::get('/{id}', 'LyricController@show');
         Route::put('/{id}', 'LyricController@update');
         Route::delete('/{id}', 'LyricController@destroy');
     });
 
     Route::group(['prefix' => 'playlist'], function () {
-        Route::get('/', 'PlaylistController@index');
-        Route::post('/', 'PlaylistController@store');
-        Route::get('/{id}', 'PlaylistController@show');
         Route::put('/{id}', 'PlaylistController@update');
         Route::delete('/{id}', 'PlaylistController@destroy');
     });

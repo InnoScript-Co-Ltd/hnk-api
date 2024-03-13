@@ -6,7 +6,6 @@ use App\Http\Requests\PlaylistStoreRequest;
 use App\Http\Requests\PlaylistUpdateRequest;
 use App\Models\Playlist;
 use Exception;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class PlaylistController extends Controller
