@@ -10,11 +10,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Outlet extends Model
 {
-    use HasFactory, HasUuids, BasicAudit, SoftDeletes;
+    use BasicAudit, HasFactory, HasUuids, SoftDeletes;
 
     protected $table = 'outlets';
 
     protected $fillable = [
-        'name', 'phone', 'date', 'address', 'time', 'promotion', 'promo_description', 'latitude', 'longitude'
+        'name', 'phone', 'date', 'address', 'time', 'promotion', 'promo_description', 'latitude', 'longitude',
     ];
 }
