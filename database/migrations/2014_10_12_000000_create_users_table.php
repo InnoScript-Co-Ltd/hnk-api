@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\UserStatusEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -17,8 +18,9 @@ return new class extends Migration
             $table->string('phone')->unique()->nullable()->default(null);
             $table->string('email')->unique()->nullable()->default(null);
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('password')->nullable()->default(null);
             $table->json('facebook_login')->nullable()->default(null);
+            $table->string('status')->default(UserStatusEnum::PENDING->value);
             $table->rememberToken();
             $table->auditColumns();
         });

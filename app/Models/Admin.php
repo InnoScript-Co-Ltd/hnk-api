@@ -23,10 +23,12 @@ class Admin extends Authenticatable implements JWTSubject
     protected $fillable = [
         'name',
         'email',
+        'phone',
         'password',
+        'status'
     ];
 
-    protected $table = "admin";
+    protected $table = "admins";
 
     /**
      * The attributes that should be hidden for serialization.
@@ -47,6 +49,11 @@ class Admin extends Authenticatable implements JWTSubject
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function image()
+    {
+        return $this->morphOne(Image::class, 'imageable');
+    }
 
 
     public function getJWTIdentifier()
