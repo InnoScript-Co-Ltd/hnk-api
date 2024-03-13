@@ -6,7 +6,6 @@ use App\Http\Requests\OutletStoreRequest;
 use App\Http\Requests\OutletUpdateRequest;
 use App\Models\Outlet;
 use Exception;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class OutletController extends Controller

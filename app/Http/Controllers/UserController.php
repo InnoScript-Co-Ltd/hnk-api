@@ -35,7 +35,6 @@ class UserController extends Controller
 
     public function store(UserStoreRequest $request)
     {
-
         $payload = collect($request->validated());
 
         try {
@@ -72,7 +71,6 @@ class UserController extends Controller
 
     public function update(UserUpdateRequest $request, $id)
     {
-
         $payload = collect($request->validated());
         DB::beginTransaction();
         try {
@@ -98,7 +96,6 @@ class UserController extends Controller
             DB::rollback();
             throw $e;
         }
-
     }
 
     public function destroy($id)
