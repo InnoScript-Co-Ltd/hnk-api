@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Enums\UserStatusEnum;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserLoginRequest;
 use Illuminate\Support\Facades\DB;
@@ -29,6 +30,10 @@ class UserAuthController extends Controller
 
             if (isset($payload['email'])) {
                 $user = User::where(['email' => $payload['email']])->first();
+            }
+
+            if ($user->status !== UserStatusEnum::ACTIVE->value) {
+                return $this->badRequest('User is not active');
             }
 
             if (! $user) {

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
+use App\Enums\AdminStatusEnum;
 use App\Http\Requests\AdminLoginRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -28,6 +29,10 @@ class AdminAuthController extends Controller
 
             if (isset($payload['email'])) {
                 $user = Admin::where(['email' => $payload['email']])->first();
+            }
+
+            if ($admin->status !== AdminStatusEnum::ACTIVE->value) {
+                return $this->badRequest('Account is not active');
             }
 
             if (! $user) {

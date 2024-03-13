@@ -33,9 +33,9 @@ class AppServiceProvider extends ServiceProvider
     {
 
         Blueprint::macro('auditColumns', function () {
-            $this->unsignedBigInteger('created_by')->nullable();
-            $this->unsignedBigInteger('updated_by')->nullable();
-            $this->unsignedBigInteger('deleted_by')->nullable();
+            $this->uuid('created_by')->nullable();
+            $this->uuid('updated_by')->nullable();
+            $this->uuid('deleted_by')->nullable();
             $this->timestamps();
             $this->softDeletes();
 
