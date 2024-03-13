@@ -2,15 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Enums\UserStatusEnum;
-use Illuminate\Http\Request;
 use App\Http\Requests\UserLoginRequest;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 class UserAuthController extends Controller
 {
-    
     /**
      * APIs for user login
      *
@@ -100,7 +98,6 @@ class UserAuthController extends Controller
             throw $e;
         }
     }
-
 
     /**
      * Create new token for user login

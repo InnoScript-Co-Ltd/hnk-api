@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Song;
 use App\Http\Requests\SongStoreRequest;
 use App\Http\Requests\SongUpdateRequest;
-use Illuminate\Http\Request;
+use App\Models\Song;
 use Illuminate\Support\Facades\DB;
 
 class SongController extends Controller
@@ -36,7 +35,7 @@ class SongController extends Controller
         $payload = collect($request->validated());
 
         try {
-            
+
             $song = Song::create($payload->toArray());
             DB::commit();
 

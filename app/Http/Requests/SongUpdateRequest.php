@@ -23,7 +23,7 @@ class SongUpdateRequest extends FormRequest
     {
         return [
             'name' => 'nullable | string',
-            'file_path' => 'nullable | string'
+            'file_path' => 'nullable | string',
         ];
     }
 }

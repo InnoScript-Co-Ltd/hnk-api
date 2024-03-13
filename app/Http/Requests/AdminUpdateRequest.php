@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\AdminStatusEnum;
 use App\Enums\REGXEnum;
 use App\Helpers\Enum;
 use App\Models\Admin;
-use App\Enums\AdminStatusEnum;
 use Illuminate\Foundation\Http\FormRequest;
 
 class AdminUpdateRequest extends FormRequest
@@ -35,7 +35,7 @@ class AdminUpdateRequest extends FormRequest
             'profile' => 'nullable | image:mimes:jpeg,png,jpg,gif|max:2048',
             'email' => "email | unique:users,email,$userId",
             'phone' => ["unique:users,phone,$userId", "regex:$mobileRule"],
-            'status' => " nullable | in:$adminStatusEnum "
+            'status' => " nullable | in:$adminStatusEnum ",
         ];
     }
 }
