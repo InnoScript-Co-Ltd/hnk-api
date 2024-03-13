@@ -70,4 +70,12 @@ Route::middleware('jwt')->group(function () {
         Route::delete('/{id}', 'OutletController@destroy');
     });
 
+    Route::group(['prefix' => 'lyric'], function () {
+        Route::get('/', 'LyricController@index');
+        Route::post('/', 'LyricController@store');
+        Route::get('/{id}', 'LyricController@show');
+        Route::put('/{id}', 'LyricController@update');
+        Route::delete('/{id}', 'LyricController@destroy');
+    });
+
 });
