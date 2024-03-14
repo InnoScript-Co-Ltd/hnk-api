@@ -2,23 +2,28 @@
 
 namespace App\Models;
 
-use App\Traits\BasicAudit;
+use App\Models\Genres;
 use App\Models\Song;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Lyric extends Model
+class GenreInSong extends Model
 {
-    use BasicAudit, HasFactory, HasUuids, SoftDeletes;
+    use HasFactory, HasUuids;
 
-    protected $table = 'lyrics';
+    protected $table = 'genre_in_songs';
 
     protected $fillable = [
-        'name', 'song_id', 'lyrics',
+        'song_id', 'genre_id'
     ];
+
+
+    public function genres(): BelongsTo
+    {
+        return $this->belongsTo(Genres::class, 'genre_id', 'id');
+    }
 
     public function song(): BelongsTo
     {
