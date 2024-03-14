@@ -2,26 +2,31 @@
 
 namespace App\Models;
 
-use App\Traits\BasicAudit;
+use App\Models\Singer;
 use App\Models\Song;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Lyric extends Model
+class SingerSong extends Model
 {
-    use BasicAudit, HasFactory, HasUuids, SoftDeletes;
+    use HasFactory, HasUuids;
 
-    protected $table = 'lyrics';
+    protected $table = 'singer_songs';
 
     protected $fillable = [
-        'name', 'song_id', 'lyrics',
+        'song_id', 'singer_id'
     ];
 
     public function song(): BelongsTo
     {
         return $this->belongsTo(Song::class, 'song_id', 'id');
     }
+
+    public function singer(): BelongsTo
+    {
+        return $this->belongsTo(Singer::class, 'singer_id', 'id');
+    }
+
 }

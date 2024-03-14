@@ -93,7 +93,27 @@ Route::middleware('jwt')->group(function () {
         Route::delete('/{id}', 'OutletController@destroy');
     });
 
+    Route::group(['prefix' => 'genre-in-song'], function () {
+        Route::get('/', 'GenreInSongController@index');
+        Route::post('/', 'GenreInSongController@store');
+        Route::get('/{id}', 'GenreInSongController@show');
+        Route::put('/{id}', 'GenreInSongController@update');
+    });
+
+    Route::group(['prefix' => 'genre-in-singer'], function () {
+        Route::get('/', 'GenreInSingerController@index');
+        Route::post('/', 'GenreInSingerController@store');
+        Route::get('/{id}', 'GenreInSingerController@show');
+        Route::put('/{id}', 'GenreInSingerController@update');
+    });
+
+    Route::group(['prefix' => 'singer-song'], function () {
+        Route::get('/', 'SingerSongController@index');
+        Route::post('/', 'SingerSongController@store');
+    });
+
     Route::group(['prefix' => 'lyric'], function () {
+        Route::get('/', 'LyricController@index');
         Route::post('/', 'LyricController@store');
         Route::put('/{id}', 'LyricController@update');
         Route::delete('/{id}', 'LyricController@destroy');

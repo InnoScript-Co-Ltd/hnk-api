@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\GenreInSong;
 use Illuminate\Foundation\Http\FormRequest;
 
 class LyricUpdateRequest extends FormRequest
@@ -21,8 +22,10 @@ class LyricUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
+        $songId = implode(',', GenreInSong::all()->pluck('id')->toArray());
+
         return [
-            'song_id' => 'required|exists:songs,id',
+            'song_id' => "required|in:$songId",
             'lyrics' => 'required|string',
         ];
     }
