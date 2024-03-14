@@ -15,7 +15,8 @@ class LyricController extends Controller
         DB::beginTransaction();
 
         try {
-            $lyrics = Lyric::searchQuery()
+            $lyrics = Lyric::with(['song'])
+                ->searchQuery()
                 ->sortingQuery()
                 ->filterQuery()
                 ->filterDateQuery()

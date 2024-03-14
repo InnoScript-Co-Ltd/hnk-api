@@ -2,10 +2,11 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Singer;
+use App\Models\Song;
+use App\Models\Genres;
 use Illuminate\Foundation\Http\FormRequest;
 
-class SingerUpdateRequest extends FormRequest
+class GenreInSongStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,12 +23,13 @@ class SingerUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        $singer = Singer::findOrFail(request('id'));
-        $singerId = $singer->id;
+
+        $songId = implode(',', Song::all()->pluck('id')->toArray());
+        $genreId = implode(',', Genres::all()->pluck('id')->toArray());
 
         return [
-            'name' => "nullable | string | unique:singers,name,$singerId",
-            'profile' => "nullable | file"
+            'song_id' => "required|in:$songId",
+            'genre_id' => "required|in:$genreId"
         ];
     }
 }

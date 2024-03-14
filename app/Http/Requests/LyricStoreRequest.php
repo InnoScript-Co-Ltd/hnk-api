@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Song;
 use Illuminate\Foundation\Http\FormRequest;
 
 class LyricStoreRequest extends FormRequest
@@ -11,7 +12,7 @@ class LyricStoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+    return true;
     }
 
     /**
@@ -21,8 +22,11 @@ class LyricStoreRequest extends FormRequest
      */
     public function rules(): array
     {
+
+        $songId = implode(',', Song::all()->pluck('id')->toArray());
+
         return [
-            'song_id' => 'required|exists:songs,id',
+            'song_id' => "required|in:$songId",
             'lyrics' => 'required|string',
         ];
     }

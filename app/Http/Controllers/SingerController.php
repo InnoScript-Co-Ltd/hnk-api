@@ -36,8 +36,13 @@ class SingerController extends Controller
         $payload = collect($request->validated());
 
         try {
+            $singer = Singer::create($payload->except('profile')->toArray());
 
-            $singer = Singer::create($payload->toArray());
+            if ($request->hasFile('profile')) {
+                $imagePath = $request->file('profile')->store('images', 'public');
+                $profileImage = explode('/', $imagePath)[1];
+                $singer->image()->create(['image' => $profileImage]);
+            }
             DB::commit();
 
             return $this->success('Singer is created successfully', $singer);
