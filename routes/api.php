@@ -53,6 +53,11 @@ Route::group(['prefix' => 'playlist'], function () {
     Route::get('/{id}', 'PlaylistController@show');
 });
 
+Route::group(['prefix' => 'video-upload'], function () {
+    Route::get('/', 'VideoUploadController@index');
+    Route::get('/{id}', 'VideoUploadController@show');
+});
+
 Route::middleware('jwt')->group(function () {
 
     Route::group(['prefix' => 'admin'], function () {
@@ -122,6 +127,12 @@ Route::middleware('jwt')->group(function () {
     Route::group(['prefix' => 'playlist'], function () {
         Route::put('/{id}', 'PlaylistController@update');
         Route::delete('/{id}', 'PlaylistController@destroy');
+    });
+
+    Route::group(['prefix' => 'video-upload'], function () {
+        Route::post('/', 'VideoUploadController@store');
+        Route::put('/{id}', 'VideoUploadController@update');
+        Route::delete('/{id}', 'VideoUploadController@destroy');
     });
 
 });
