@@ -127,6 +127,7 @@ Route::middleware('jwt')->group(function () {
     Route::group(['prefix' => 'music'], function () {
         Route::get('/', 'MusicController@index');
         Route::post('/', 'MusicController@store');
+        Route::get('/{id}', 'MusicController@show');
     });
 
     Route::group(['prefix' => 'playlist'], function () {
