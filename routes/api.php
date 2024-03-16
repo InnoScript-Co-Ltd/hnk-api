@@ -119,6 +119,11 @@ Route::middleware('jwt')->group(function () {
         Route::delete('/{id}', 'LyricController@destroy');
     });
 
+    Route::group(['prefix' => 'music'], function () {
+        Route::get('/', 'MusicController@index');
+        Route::post('/', 'MusicController@store');
+    });
+
     Route::group(['prefix' => 'playlist'], function () {
         Route::put('/{id}', 'PlaylistController@update');
         Route::delete('/{id}', 'PlaylistController@destroy');
