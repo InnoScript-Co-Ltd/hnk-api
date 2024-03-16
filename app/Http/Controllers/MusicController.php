@@ -37,30 +37,54 @@ class MusicController extends Controller
     {
         $payload = collect($request->toArray());
 
-        $userId = $request->input('user_id');
-        $audios = $request->file('audios');
-        $music = new Music();
+        try{
 
-        // Store and process each audio file
-        foreach ($audios as $audio) {
-            $originalName = $audio->getClientOriginalName();
+            DB::beginTransaction();
 
-            $fileName = uniqid() . '.' . $audio->getClientOriginalExtension();
+            $userId = $request->input('user_id');
+            $audios = $request->file('audios');
+            $music = new Music();
+    
+            // Store and process each audio file
+            foreach ($audios as $audio) {
+                $originalName = $audio->getClientOriginalName();
+    
+                $fileName = uniqid() . '.' . $audio->getClientOriginalExtension();
+                
+                // Save the audio file to the storage directory
+                $path = $audio->storeAs('public/audio', $fileName);
             
-            // Save the audio file to the storage directory
-            $path = $audio->storeAs('public/audio', $fileName);
-        
-            // Create a new Music model instance and associate it with the user
-            $music->user_id = $userId;
-            $audiosArray = is_array($music->audios) ? $music->audios : [];
-            $audiosArray[] = $path;
-            $music->audios = $audiosArray;
+                // Create a new Music model instance and associate it with the user
+                $music->user_id = $userId;
+                $audiosArray = is_array($music->audios) ? $music->audios : [];
+                $audiosArray[] = $path;
+                $music->audios = $audiosArray;
+            }
+    
+            $music->save();
+            DB::commit();
+    
+            return $this->success('Audio is uploaded successfully', $music);
+
+        } catch (Exception $e) {
+            DB::rollback();
+            throw $e;
         }
+    }
 
-        $music->save();
-        DB::commit();
+    public function show($id)
+    {
+        DB::beginTransaction();
+        try {
+            $music = Music::with(['user'])->findOrFail($id);
+            DB::commit();
 
-        return $this->success('Audio is uploaded successfully', $music);
+            return $this->success('Music detail is successfully retrived', $music);
+
+        } catch (Exception $e) {
+            DB::rollback();
+            throw $e;
+        }
     }
 
 }
