@@ -123,6 +123,7 @@ Route::middleware('jwt')->group(function () {
         Route::get('/', 'MusicController@index');
         Route::post('/', 'MusicController@store');
         Route::get('/{id}', 'MusicController@show');
+        Route::post('/{id}', 'MusicController@update');
     });
 
     Route::group(['prefix' => 'playlist'], function () {

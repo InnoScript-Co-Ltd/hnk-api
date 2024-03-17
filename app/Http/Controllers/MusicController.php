@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Music;
 use App\Http\Requests\MusicStoreRequest;
+use App\Http\Requests\MusicUpdateRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Exception;
@@ -37,9 +38,9 @@ class MusicController extends Controller
     {
         $payload = collect($request->toArray());
 
-        try{
+        DB::beginTransaction();
 
-            DB::beginTransaction();
+        try{
 
             $userId = $request->input('user_id');
             $audios = $request->file('audios');
@@ -80,6 +81,46 @@ class MusicController extends Controller
             DB::commit();
 
             return $this->success('Music detail is successfully retrived', $music);
+
+        } catch (Exception $e) {
+            DB::rollback();
+            throw $e;
+        }
+    }
+
+    public function update(MusicUpdateRequest $request, $id)
+    {
+        $payload = collect($request->toArray());
+        DB::beginTransaction();
+
+        try {
+
+            $userId = $request->input('user_id');
+            $audios = $request->file('audios');
+            $music = Music::findOrFail($id);
+
+            if(count($music->audios) > 0){
+                $music->audios = [];
+            }
+
+            // Process each uploaded audio file
+            foreach ($audios as $audio) {
+                $originalName = $audio->getClientOriginalName();
+                $fileName = uniqid() . '.' . $audio->getClientOriginalExtension();
+
+                // Save the audio file to the storage directory
+                $path = $audio->storeAs('public/audio', $fileName);
+
+                $audiosArray = is_array($music->audios) ? $music->audios : [];
+                $audiosArray[] = $path;
+                $music->audios = $audiosArray;
+            }
+
+            $music->update($payload->toArray());
+
+            DB::commit();
+
+            return $this->success('Lyric is updated successfully', $music);
 
         } catch (Exception $e) {
             DB::rollback();
