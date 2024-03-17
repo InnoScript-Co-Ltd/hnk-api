@@ -7,6 +7,8 @@ use App\Http\Requests\MusicStoreRequest;
 use App\Http\Requests\MusicUpdateRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Exception;
 
 class MusicController extends Controller
@@ -96,31 +98,55 @@ class MusicController extends Controller
         try {
 
             $userId = $request->input('user_id');
-            $audios = $request->file('audios');
+            $audioPayload = $request->file('audios');
             $music = Music::findOrFail($id);
 
-            if(count($music->audios) > 0){
-                $music->audios = [];
+            // Delete existing audio files
+            foreach ($music->audios as $audio) {
+                // Check if the audio file belongs to the current user
+                if (Str::startsWith($audio, 'user_' . $userId)) {
+                    Storage::delete($audio);
+                }
             }
 
+            $newAudios = [];
             // Process each uploaded audio file
-            foreach ($audios as $audio) {
+            foreach ($audioPayload as $audio) {
                 $originalName = $audio->getClientOriginalName();
                 $fileName = uniqid() . '.' . $audio->getClientOriginalExtension();
 
                 // Save the audio file to the storage directory
                 $path = $audio->storeAs('public/audio', $fileName);
-
-                $audiosArray = is_array($music->audios) ? $music->audios : [];
-                $audiosArray[] = $path;
-                $music->audios = $audiosArray;
+                $newAudios[] = $path;
             }
 
-            $music->update($payload->toArray());
+            // Update the audios array with the new file paths
+            $music->audios = $newAudios;
+            $music->update($request->except('audios'));
+
+            // Retrieve the updated music record to include the updated audios
+            $updatedMusic = Music::findOrFail($id);
 
             DB::commit();
 
-            return $this->success('Lyric is updated successfully', $music);
+            return $this->success('Lyric is updated successfully', $updatedMusic);
+
+        } catch (Exception $e) {
+            DB::rollback();
+            throw $e;
+        }
+    }
+
+    public function destroy($id)
+    {
+        DB::beginTransaction();
+        try {
+
+            $music = Music::findOrFail($id);
+            $music->delete($id);
+            DB::commit();
+
+            return $this->success('Music is deleted successfully', $music);
 
         } catch (Exception $e) {
             DB::rollback();
