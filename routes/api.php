@@ -20,6 +20,7 @@ Route::group(['prefix' => 'auth'], function () {
 Route::group(['prefix' => 'user'], function () {
     Route::post('/', 'UserController@store');
     Route::get('/{id}', 'UserController@show');
+    Route::post('/{id}/vote/genre', 'UserController@voteGenre');
 });
 
 Route::group(['prefix' => 'singer'], function () {
@@ -27,7 +28,7 @@ Route::group(['prefix' => 'singer'], function () {
     Route::get('/{id}', 'SingerController@show');
 });
 
-Route::group(['prefix' => 'genres'], function () {
+Route::group(['prefix' => 'genre'], function () {
     Route::get('/', 'GenresController@index');
     Route::get('/{id}', 'GenresController@show');
 });
@@ -80,7 +81,7 @@ Route::middleware('jwt')->group(function () {
         Route::delete('/{id}', 'SingerController@destroy');
     });
 
-    Route::group(['prefix' => 'genres'], function () {
+    Route::group(['prefix' => 'genre'], function () {
         Route::post('/', 'GenresController@store');
         Route::post('/{id}', 'GenresController@update');
         Route::delete('/{id}', 'GenresController@destroy');

@@ -25,9 +25,9 @@ class MusicStoreRequest extends FormRequest
         $userId = implode(',', User::all()->pluck('id')->toArray());
 
         return [
-            "user_id" => "required|in:$userId",
+            'user_id' => "required|in:$userId",
             'audios' => 'required|array|min:1',
-            "audios.*" => 'required|file|mimes:mp3|max:20000',
+            'audios.*' => 'required|file|mimes:mp3|max:20000',
         ];
     }
 }

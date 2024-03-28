@@ -15,6 +15,11 @@ class Genres extends Model
     protected $table = 'genres';
 
     protected $fillable = [
-        'name', 'rate',
+        'name', 'rate', 'status',
     ];
+
+    public function icon()
+    {
+        return $this->morphOne(Image::class, 'imageable');
+    }
 }

@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Song;
 use App\Models\Genres;
+use App\Models\Song;
 use Illuminate\Foundation\Http\FormRequest;
 
 class GenreInSongUpdateRequest extends FormRequest
@@ -28,7 +28,7 @@ class GenreInSongUpdateRequest extends FormRequest
 
         return [
             'song_id' => "nullable|in:$songId",
-            'genre_id' => "nullable|in:$genreId"
+            'genre_id' => "nullable|in:$genreId",
         ];
     }
 }

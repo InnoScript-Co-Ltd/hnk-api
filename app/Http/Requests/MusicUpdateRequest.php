@@ -25,9 +25,9 @@ class MusicUpdateRequest extends FormRequest
         $userId = implode(',', User::all()->pluck('id')->toArray());
 
         return [
-            "user_id" => "nullable|in:$userId",
+            'user_id' => "nullable|in:$userId",
             'audios' => 'nullable|array|min:1',
-            "audios.*" => 'nullable|file|mimes:mp3|max:20000',
+            'audios.*' => 'nullable|file|mimes:mp3|max:20000',
         ];
     }
 }

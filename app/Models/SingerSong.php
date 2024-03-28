@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Singer;
-use App\Models\Song;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -16,7 +14,7 @@ class SingerSong extends Model
     protected $table = 'singer_songs';
 
     protected $fillable = [
-        'song_id', 'singer_id'
+        'song_id', 'singer_id',
     ];
 
     public function song(): BelongsTo
@@ -28,5 +26,4 @@ class SingerSong extends Model
     {
         return $this->belongsTo(Singer::class, 'singer_id', 'id');
     }
-
 }

@@ -23,7 +23,7 @@ class VideoUploadStoreRequest extends FormRequest
     {
         return [
             'user_id' => 'required|exists:users,id',
-            'video_path' => 'required'
+            'video_path' => 'required',
         ];
     }
 }

@@ -26,11 +26,12 @@ class OutletUpdateRequest extends FormRequest
             'phone' => 'nullable|string|max:255',
             'address' => 'nullable|string',
             'date' => 'nullable|date',
-            'time' => 'nullable|string|max:255',
+            'time' => 'nullable|string|time',
             'promotion' => 'nullable|string|max:255',
             'promo_description' => 'nullable|string',
             'latitude' => 'nullable|numeric',
             'longitude' => 'nullable|numeric',
+            'status' => 'nullable | string | in:ACTIVE,DISABLE',
         ];
     }
 }

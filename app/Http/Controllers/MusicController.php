@@ -2,18 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Music;
 use App\Http\Requests\MusicStoreRequest;
 use App\Http\Requests\MusicUpdateRequest;
-use Illuminate\Http\Request;
+use App\Models\Music;
+use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use Exception;
 
 class MusicController extends Controller
 {
-    
     public function index()
     {
         DB::beginTransaction();
@@ -36,37 +34,37 @@ class MusicController extends Controller
         }
     }
 
-    public function store(MusicStoreRequest $request) 
+    public function store(MusicStoreRequest $request)
     {
         $payload = collect($request->toArray());
 
         DB::beginTransaction();
 
-        try{
+        try {
 
             $userId = $request->input('user_id');
             $audios = $request->file('audios');
             $music = new Music();
-    
+
             // Store and process each audio file
             foreach ($audios as $audio) {
                 $originalName = $audio->getClientOriginalName();
-    
-                $fileName = uniqid() . '.' . $audio->getClientOriginalExtension();
-                
+
+                $fileName = uniqid().'.'.$audio->getClientOriginalExtension();
+
                 // Save the audio file to the storage directory
                 $path = $audio->storeAs('public/audio', $fileName);
-            
+
                 // Create a new Music model instance and associate it with the user
                 $music->user_id = $userId;
                 $audiosArray = is_array($music->audios) ? $music->audios : [];
                 $audiosArray[] = $path;
                 $music->audios = $audiosArray;
             }
-    
+
             $music->save();
             DB::commit();
-    
+
             return $this->success('Audio is uploaded successfully', $music);
 
         } catch (Exception $e) {
@@ -104,7 +102,7 @@ class MusicController extends Controller
             // Delete existing audio files
             foreach ($music->audios as $audio) {
                 // Check if the audio file belongs to the current user
-                if (Str::startsWith($audio, 'user_' . $userId)) {
+                if (Str::startsWith($audio, 'user_'.$userId)) {
                     Storage::delete($audio);
                 }
             }
@@ -113,7 +111,7 @@ class MusicController extends Controller
             // Process each uploaded audio file
             foreach ($audioPayload as $audio) {
                 $originalName = $audio->getClientOriginalName();
-                $fileName = uniqid() . '.' . $audio->getClientOriginalExtension();
+                $fileName = uniqid().'.'.$audio->getClientOriginalExtension();
 
                 // Save the audio file to the storage directory
                 $path = $audio->storeAs('public/audio', $fileName);
@@ -153,5 +151,4 @@ class MusicController extends Controller
             throw $e;
         }
     }
-
 }

@@ -22,8 +22,8 @@ class GenresStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required | string',
-            'rate' => ['required', 'integer'],
+            'name' => 'required | string | unique:genres,name',
+            'icon' => 'required | image:mimes:jpeg,png,jpg,gif|max:2048',
         ];
     }
 }
