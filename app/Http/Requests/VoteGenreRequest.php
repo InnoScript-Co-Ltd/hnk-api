@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Genres;
 use Illuminate\Foundation\Http\FormRequest;
 
-class GenresUpdateRequest extends FormRequest
+class VoteGenreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,11 +22,10 @@ class GenresUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
+        $genres = implode(',', Genres::pluck('name')->toArray());
+
         return [
-            'name' => 'nullable | string',
-            'rate' => 'nullable | numeric',
-            'icon' => 'nullable | image:mimes:jpeg,png,jpg,gif|max:2048',
-            'status' => 'nullable | in:ACTIVE,DISABLE',
+            'vote_genre' => "required | string | in:$genres",
         ];
     }
 }

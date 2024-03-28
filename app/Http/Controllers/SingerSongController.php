@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\SingerSong;
 use App\Http\Requests\SingerSongStoreRequest;
+use App\Models\SingerSong;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Http\Request;
 
 class SingerSongController extends Controller
 {
-    public function index ()
+    public function index()
     {
         DB::beginTransaction();
 
@@ -31,7 +30,7 @@ class SingerSongController extends Controller
         }
     }
 
-    public function store (SingerSongStoreRequest $request)
+    public function store(SingerSongStoreRequest $request)
     {
         $payload = collect($request->validated());
 
@@ -47,6 +46,4 @@ class SingerSongController extends Controller
             throw $e;
         }
     }
-
-
 }

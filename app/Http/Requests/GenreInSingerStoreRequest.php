@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Singer;
 use App\Models\Genres;
+use App\Models\Singer;
 use Illuminate\Foundation\Http\FormRequest;
 
 class GenreInSingerStoreRequest extends FormRequest
@@ -28,7 +28,7 @@ class GenreInSingerStoreRequest extends FormRequest
 
         return [
             'singers_id' => "required|in:$singerId",
-            'genre_id' => "required|in:$genreId"
+            'genre_id' => "required|in:$genreId",
         ];
     }
 }

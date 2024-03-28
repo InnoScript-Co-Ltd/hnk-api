@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('genres', function (Blueprint $table) {
             $table->uuid('id')->primary()->unique()->index();
             $table->string('name');
-            $table->unsignedBigInteger('rate');
+            $table->unsignedBigInteger('rate')->nullable()->default(0);
+            $table->string('status')->default('ACTIVE');
             $table->auditColumns();
         });
     }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UserStoreRequest;
 use App\Http\Requests\UserUpdateRequest;
+use App\Http\Requests\VoteGenreRequest;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Crypt;
@@ -104,10 +105,28 @@ class UserController extends Controller
         try {
 
             $user = User::findOrFail($id);
-            $user->delete($id);
+            $user->delete();
             DB::commit();
 
             return $this->success('User is deleted successfully', $user);
+
+        } catch (\Exception $e) {
+            DB::rollback();
+            throw $e;
+        }
+    }
+
+    public function voteGenre(VoteGenreRequest $request, $id)
+    {
+        $payload = collect($request->validated());
+        DB::beginTransaction();
+        try {
+
+            $user = User::findOrFail($id);
+            $user->update($payload->toArray());
+            DB::commit();
+
+            return $this->success('user is successfully vote genre', $user);
 
         } catch (\Exception $e) {
             DB::rollback();

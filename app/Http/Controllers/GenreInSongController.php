@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\GenreInSong;
 use App\Http\Requests\GenreInSongStoreRequest;
 use App\Http\Requests\GenreInSongUpdateRequest;
-use Illuminate\Http\Request;
+use App\Models\GenreInSong;
 use Illuminate\Support\Facades\DB;
 
 class GenreInSongController extends Controller
 {
-    public function index ()
+    public function index()
     {
         DB::beginTransaction();
 
@@ -32,7 +31,7 @@ class GenreInSongController extends Controller
         }
     }
 
-    public function store (GenreInSongStoreRequest $request)
+    public function store(GenreInSongStoreRequest $request)
     {
         $payload = collect($request->validated());
 

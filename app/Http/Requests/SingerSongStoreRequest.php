@@ -27,8 +27,8 @@ class SingerSongStoreRequest extends FormRequest
         $singerId = implode(',', Singer::all()->pluck('id')->toArray());
 
         return [
-            "song_id" => "required|in:$songId",
-            "singer_id" => "required|in:$singerId"
+            'song_id' => "required|in:$songId",
+            'singer_id' => "required|in:$singerId",
         ];
     }
 }

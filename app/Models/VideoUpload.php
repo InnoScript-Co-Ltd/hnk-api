@@ -10,13 +10,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class VideoUpload extends Model
 {
-    use HasFactory, BasicAudit, HasUuids, SoftDeletes;
+    use BasicAudit, HasFactory, HasUuids, SoftDeletes;
 
     protected $table = 'video_uploads';
 
     protected $fillable = [
         'user_id',
-        'video_path'
+        'video_path',
     ];
 
     protected $casts = [

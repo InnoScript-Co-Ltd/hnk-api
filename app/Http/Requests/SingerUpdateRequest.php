@@ -27,7 +27,7 @@ class SingerUpdateRequest extends FormRequest
 
         return [
             'name' => "nullable | string | unique:singers,name,$singerId",
-            'profile' => "nullable | file"
+            'profile' => 'nullable | image:mimes:jpeg,png,jpg,gif|max:2048',
         ];
     }
 }

@@ -10,12 +10,20 @@ use Illuminate\Support\Facades\DB;
 
 class OutletController extends Controller
 {
+    private $active;
+
+    public function __construct()
+    {
+        $this->active = Auth('api')->user() ? [] : ['status' => 'ACTIVE'];
+    }
+
     public function index()
     {
         DB::beginTransaction();
 
         try {
-            $outlets = Outlet::searchQuery()
+            $outlets = Outlet::where($this->active)
+                ->searchQuery()
                 ->sortingQuery()
                 ->filterQuery()
                 ->filterDateQuery()
@@ -52,7 +60,7 @@ class OutletController extends Controller
     {
         DB::beginTransaction();
         try {
-            $outlet = Outlet::findOrFail($id);
+            $outlet = Outlet::where($this->active)->findOrFail($id);
             DB::commit();
 
             return $this->success('Outlet detail is successfully retrived', $outlet);
@@ -91,7 +99,7 @@ class OutletController extends Controller
         try {
 
             $outlet = Outlet::findOrFail($id);
-            $outlet->delete($id);
+            $outlet->delete();
             DB::commit();
 
             return $this->success('Outlet is deleted successfully', $outlet);

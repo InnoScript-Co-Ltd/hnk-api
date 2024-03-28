@@ -21,6 +21,7 @@ return new class extends Migration
             // $table->boolean('is_accept')->nullabel()->default(null);
             $table->longText('token')->nullable()->default(null);
             $table->date('token_expired')->nullable()->default(null);
+            $table->string('vote_genre')->nullable()->default(null);
             $table->rememberToken();
             $table->auditColumns();
         });

@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 
-class GenresUpdateRequest extends FormRequest
+class MusicUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,11 +22,12 @@ class GenresUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
+        $userId = implode(',', User::all()->pluck('id')->toArray());
+
         return [
-            'name' => 'nullable | string',
-            'rate' => 'nullable | numeric',
-            'icon' => 'nullable | image:mimes:jpeg,png,jpg,gif|max:2048',
-            'status' => 'nullable | in:ACTIVE,DISABLE',
+            'user_id' => "nullable|in:$userId",
+            'audios' => 'nullable|array|min:1',
+            'audios.*' => 'nullable|file|mimes:mp3|max:20000',
         ];
     }
 }

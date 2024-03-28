@@ -15,6 +15,6 @@ class Outlet extends Model
     protected $table = 'outlets';
 
     protected $fillable = [
-        'name', 'phone', 'date', 'address', 'time', 'promotion', 'promo_description', 'latitude', 'longitude',
+        'name', 'phone', 'date', 'address', 'time', 'promotion', 'promo_description', 'latitude', 'longitude', 'status',
     ];
 }

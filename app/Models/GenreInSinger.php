@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Singer;
-use App\Models\Genres;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -16,7 +14,7 @@ class GenreInSinger extends Model
     protected $table = 'genre_in_singers';
 
     protected $fillable = [
-        'singers_id', 'genre_id'
+        'singers_id', 'genre_id',
     ];
 
     public function genres(): BelongsTo

@@ -20,8 +20,9 @@ return new class extends Migration
             $table->string('time')->nullable();
             $table->string('promotion')->nullable();
             $table->longText('promo_description')->nullable();
-            $table->float('latitude')->nullable();
-            $table->float('longitude')->nullable();
+            $table->float('latitude', 9, 6)->nullable();
+            $table->float('longitude', 9, 6)->nullable();
+            $table->string('status')->default('ACTIVE');
             $table->auditColumns();
         });
     }

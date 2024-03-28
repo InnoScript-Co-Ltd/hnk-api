@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\VideoUpload;
-use App\Http\Requests\StoreVideoUploadRequest;
-use App\Http\Requests\UpdateVideoUploadRequest;
 use App\Http\Requests\VideoUploadStoreRequest;
 use App\Http\Requests\VideoUploadUpdateRequest;
+use App\Models\VideoUpload;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -51,15 +49,14 @@ class VideoUploadController extends Controller
                     $originName = $videoPath->getClientOriginalName();
                     $extension = $videoPath->getClientOriginalExtension();
                     $fileName = pathinfo($originName, PATHINFO_FILENAME);
-                    $fileName = $fileName . '_' . uniqid() . '.' . $extension;
+                    $fileName = $fileName.'_'.uniqid().'.'.$extension;
                     $videoPath->move(public_path('video_upload'), $fileName);
 
-                    $videoPaths[] = 'video_upload/' . $fileName;
+                    $videoPaths[] = 'video_upload/'.$fileName;
                 }
 
                 $payload['video_path'] = $videoPaths;
             }
-
 
             $videoUpload = VideoUpload::create($payload->toArray());
             DB::commit();
@@ -111,10 +108,10 @@ class VideoUploadController extends Controller
                     $originName = $videoPath->getClientOriginalName();
                     $extension = $videoPath->getClientOriginalExtension();
                     $fileName = pathinfo($originName, PATHINFO_FILENAME);
-                    $fileName = $fileName . '_' . uniqid() . '.' . $extension;
+                    $fileName = $fileName.'_'.uniqid().'.'.$extension;
                     $videoPath->move(public_path('video_upload'), $fileName);
 
-                    $videoPaths[] = 'video_upload/' . $fileName;
+                    $videoPaths[] = 'video_upload/'.$fileName;
                 }
 
                 $payload['video_path'] = $videoPaths;

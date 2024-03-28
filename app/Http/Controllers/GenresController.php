@@ -5,16 +5,26 @@ namespace App\Http\Controllers;
 use App\Http\Requests\GenresStoreRequest;
 use App\Http\Requests\GenresUpdateRequest;
 use App\Models\Genres;
+use Exception;
 use Illuminate\Support\Facades\DB;
 
 class GenresController extends Controller
 {
+    private $active;
+
+    public function __construct()
+    {
+        $this->active = Auth('api')->user() ? [] : ['status' => 'ACTIVE'];
+    }
+
     public function index()
     {
         DB::beginTransaction();
 
         try {
-            $genres = Genres::searchQuery()
+            $genres = Genres::where($this->active)
+                ->with(['icon'])
+                ->searchQuery()
                 ->sortingQuery()
                 ->filterQuery()
                 ->filterDateQuery()
@@ -36,10 +46,15 @@ class GenresController extends Controller
 
         try {
 
-            $genres = Genres::create($payload->toArray());
+            $genre = Genres::create($payload->toArray());
+
+            $imagePath = $payload['icon']->store('images', 'public');
+            $iconImage = explode('/', $imagePath)[1];
+            $genre->icon()->updateOrCreate(['image' => $iconImage]);
+            $genre['icon'] = $iconImage;
             DB::commit();
 
-            return $this->success('Genres is created successfully', $genres);
+            return $this->success('Genres is created successfully', $genre);
 
         } catch (Exception $e) {
             DB::rollback();
@@ -51,7 +66,7 @@ class GenresController extends Controller
     {
         DB::beginTransaction();
         try {
-            $genres = Genres::findOrFail($id);
+            $genres = Genres::where($this->active)->findOrFail($id);
             DB::commit();
 
             return $this->success('Genres detail is successfully retrived', $genres);
@@ -69,19 +84,24 @@ class GenresController extends Controller
         DB::beginTransaction();
         try {
 
-            $genres = Genres::findOrFail($id);
+            $genre = Genres::findOrFail($id);
 
-            $genres->update($payload->toArray());
+            $genre->update($payload->toArray());
 
+            if ($payload['icon']) {
+                $imagePath = $payload['icon']->store('images', 'public');
+                $iconImage = explode('/', $imagePath)[1];
+                $genre->icon()->updateOrCreate(['image' => $iconImage]);
+                $genre['icon'] = $iconImage;
+            }
             DB::commit();
 
-            return $this->success('Genres is updated successfully', $genres);
+            return $this->success('Genre is updated successfully', $genre);
 
         } catch (Exception $e) {
             DB::rollback();
             throw $e;
         }
-
     }
 
     public function destroy($id)
@@ -90,7 +110,7 @@ class GenresController extends Controller
         try {
 
             $genres = Genres::findOrFail($id);
-            $genres->delete($id);
+            $genres->delete();
             DB::commit();
 
             return $this->success('Genres is deleted successfully', $genres);

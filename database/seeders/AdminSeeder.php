@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Enums\AdminStatusEnum;
 use App\Helpers\Enum;
 use App\Models\Admin;
+use Exception;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 

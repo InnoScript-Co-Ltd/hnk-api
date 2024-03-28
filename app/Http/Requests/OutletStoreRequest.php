@@ -24,13 +24,13 @@ class OutletStoreRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'phone' => 'required|string|max:255',
-            'address' => 'nullable|string',
-            'date' => 'nullable|date',
-            'time' => 'nullable|string|max:255',
-            'promotion' => 'nullable|string|max:255',
-            'promo_description' => 'nullable|string',
-            'latitude' => 'nullable|numeric',
-            'longitude' => 'nullable|numeric',
+            'address' => 'required|string',
+            'date' => 'required|date',
+            'time' => 'required|string',
+            'promotion' => 'required|string|max:255',
+            'promo_description' => 'required|string',
+            'latitude' => 'required|numeric',
+            'longitude' => 'required|numeric',
         ];
     }
 }
