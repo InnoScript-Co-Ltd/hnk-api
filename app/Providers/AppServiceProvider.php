@@ -61,5 +61,9 @@ class AppServiceProvider extends ServiceProvider
         Builder::macro('filterDateQuery', function () {
             return QueryBuilderHelper::filterDateQuery($this);
         });
+
+        Builder::macro('distanceQuery', function () {
+            return QueryBuilderHelper::distanceQuery($this);
+        });
     }
 }

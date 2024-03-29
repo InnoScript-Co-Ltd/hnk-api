@@ -27,6 +27,7 @@ class OutletController extends Controller
                 ->sortingQuery()
                 ->filterQuery()
                 ->filterDateQuery()
+                ->distanceQuery()
                 ->paginationQuery();
 
             DB::commit();

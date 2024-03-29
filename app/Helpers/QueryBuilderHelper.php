@@ -107,4 +107,24 @@ class QueryBuilderHelper
 
         return $builder;
     }
+
+    public static function distanceQuery(Builder $builder): mixed
+    {
+
+        $requestQuery = app('request')->query();
+        $lat = isset($requestQuery['lat']) ? $requestQuery['lat'] : null;
+        $long = isset($requestQuery['long']) ? $requestQuery['long'] : null;
+        $distance = isset($requestQuery['distance']) ? $requestQuery['distance'] : null;
+
+        if ($lat && $long && $distance) {
+            $builder->select(['*'])
+                ->selectRaw(
+                    '(6371 * acos(cos(radians(?)) * cos(radians(latitude)) * cos(radians(longitude) - radians(?)) + sin(radians(?)) * sin(radians(latitude)))) AS distance',
+                    [$lat, $long, $lat]
+                )
+                ->having('distance', '<', $distance);
+        }
+
+        return $builder;
+    }
 }
