@@ -2,10 +2,9 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Singer;
 use Illuminate\Foundation\Http\FormRequest;
 
-class SingerUpdateRequest extends FormRequest
+class PromotionSliderStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,13 +21,9 @@ class SingerUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        $singer = Singer::findOrFail(request('id'));
-        $singerId = $singer->id;
-
         return [
-            'name' => "nullable | string | unique:singers,name,$singerId",
-            'profile' => 'nullable | image:mimes:jpeg,png,jpg,gif|max:2048',
-            'status' => 'nullable | string | in:ACTIVE,DISABLE',
+            'title' => 'required | string',
+            'image' => 'required | image:mimes:jpeg,png,jpg,gif|max:2048',
         ];
     }
 }

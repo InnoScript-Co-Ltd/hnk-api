@@ -8,14 +8,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Singer extends Model
+class PromotionSlider extends Model
 {
     use BasicAudit, HasFactory, HasUuids, SoftDeletes;
 
-    protected $table = 'singers';
+    protected $table = 'promotion_sliders';
 
     protected $fillable = [
-        'name', 'status',
+        'title', 'status',
     ];
 
     public function image()

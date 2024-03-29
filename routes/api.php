@@ -28,6 +28,11 @@ Route::group(['prefix' => 'singer'], function () {
     Route::get('/{id}', 'SingerController@show');
 });
 
+Route::group(['prefix' => 'promotion-slider'], function () {
+    Route::get('/', 'PromotionSliderController@index');
+    Route::get('/{id}', 'PromotionSliderController@show');
+});
+
 Route::group(['prefix' => 'genre'], function () {
     Route::get('/', 'GenresController@index');
     Route::get('/{id}', 'GenresController@show');
@@ -79,6 +84,12 @@ Route::middleware('jwt')->group(function () {
         Route::post('/', 'SingerController@store');
         Route::post('/{id}', 'SingerController@update');
         Route::delete('/{id}', 'SingerController@destroy');
+    });
+
+    Route::group(['prefix' => 'promotion-slider'], function () {
+        Route::post('/', 'PromotionSliderController@store');
+        Route::post('/{id}', 'PromotionSliderController@update');
+        Route::delete('/{id}', 'PromotionSliderController@destroy');
     });
 
     Route::group(['prefix' => 'genre'], function () {
