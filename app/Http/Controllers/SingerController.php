@@ -38,10 +38,11 @@ class SingerController extends Controller
         try {
             $singer = Singer::create($payload->except('profile')->toArray());
 
-            if ($request->hasFile('profile')) {
-                $imagePath = $request->file('profile')->store('images', 'public');
+            if (isset($payload['profile'])) {
+                $imagePath = $payload['profile']->store('images', 'public');
                 $profileImage = explode('/', $imagePath)[1];
                 $singer->image()->create(['image' => $profileImage]);
+                $singer['profile'] = $profileImage;
             }
             DB::commit();
 
@@ -76,6 +77,7 @@ class SingerController extends Controller
         try {
 
             $singer = Singer::findOrFail($id);
+            $singer->update($payload->toArray());
 
             if (isset($payload['profile'])) {
                 $imagePath = $payload['profile']->store('images', 'public');
@@ -84,9 +86,9 @@ class SingerController extends Controller
                     'image' => $profileImage,
                     'imageable_id' => $singer->id,
                 ]);
-            }
 
-            $singer->update($payload->toArray());
+                $singer['profile'] = $profileImage;
+            }
 
             DB::commit();
 
@@ -105,7 +107,7 @@ class SingerController extends Controller
         try {
 
             $singer = Singer::findOrFail($id);
-            $singer->delete($id);
+            $singer->delete();
             DB::commit();
 
             return $this->success('Singer is deleted successfully', $singer);

@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'paths' => ['api/*', 'sanctum/csrf-cookie'],
+    'paths' => ['hnk.innoscript.co/api/*'],
 
     'allowed_methods' => ['*'],
 

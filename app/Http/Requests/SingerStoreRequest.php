@@ -23,6 +23,7 @@ class SingerStoreRequest extends FormRequest
     {
         return [
             'name' => 'required|string|unique:singers,name',
+            'profile' => 'required | image:mimes:jpeg,png,jpg,gif|max:2048',
         ];
     }
 }

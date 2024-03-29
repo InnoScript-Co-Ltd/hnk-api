@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('singers', function (Blueprint $table) {
+        Schema::create('promotion_sliders', function (Blueprint $table) {
             $table->uuid('id')->primary()->unique()->index();
-            $table->string('name')->unique();
+            $table->string('title');
             $table->string('status')->default('ACTIVE');
             $table->auditColumns();
         });
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('singers');
+        Schema::dropIfExists('promotion_sliders');
     }
 };
