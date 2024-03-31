@@ -22,4 +22,11 @@ class Genres extends Model
     {
         return $this->morphOne(Image::class, 'imageable');
     }
+
+    public function ratePercentage()
+    {
+        $generes = $this;
+
+        return $generes;
+    }
 }
