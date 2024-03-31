@@ -24,6 +24,7 @@ class GenresStoreRequest extends FormRequest
         return [
             'name' => 'required | string | unique:genres,name',
             'icon' => 'required | image:mimes:jpeg,png,jpg,gif|max:2048',
+            'color' => 'required | string',
         ];
     }
 }
