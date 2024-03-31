@@ -66,7 +66,7 @@ class GenresController extends Controller
     {
         DB::beginTransaction();
         try {
-            $genres = Genres::where($this->active)->findOrFail($id);
+            $genres = Genres::with(['icon'])->where($this->active)->findOrFail($id);
             DB::commit();
 
             return $this->success('Genres detail is successfully retrived', $genres);
