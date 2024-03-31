@@ -23,7 +23,7 @@ class GenresController extends Controller
 
         try {
             $genres = Genres::where($this->active)
-                ->with(['icon', 'ratePercentage'])
+                ->with(['icon'])
                 ->searchQuery()
                 ->sortingQuery()
                 ->filterQuery()
