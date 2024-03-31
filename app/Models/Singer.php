@@ -18,7 +18,7 @@ class Singer extends Model
         'name', 'status',
     ];
 
-    public function image()
+    public function profile()
     {
         return $this->morphOne(Image::class, 'imageable');
     }

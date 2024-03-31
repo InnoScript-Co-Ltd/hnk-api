@@ -14,7 +14,7 @@ class SingerController extends Controller
         DB::beginTransaction();
 
         try {
-            $singer = Singer::with(['image'])
+            $singer = Singer::with(['profile'])
                 ->searchQuery()
                 ->sortingQuery()
                 ->filterQuery()
@@ -41,7 +41,7 @@ class SingerController extends Controller
             if (isset($payload['profile'])) {
                 $imagePath = $payload['profile']->store('images', 'public');
                 $profileImage = explode('/', $imagePath)[1];
-                $singer->image()->create(['image' => $profileImage]);
+                $singer->profile()->create(['image' => $profileImage]);
                 $singer['profile'] = $profileImage;
             }
             DB::commit();
@@ -58,7 +58,7 @@ class SingerController extends Controller
     {
         DB::beginTransaction();
         try {
-            $singer = Singer::with(['image'])->findOrFail($id);
+            $singer = Singer::with(['profile'])->findOrFail($id);
             DB::commit();
 
             return $this->success('Singer detail is successfully retrived', $singer);
@@ -82,7 +82,7 @@ class SingerController extends Controller
             if (isset($payload['profile'])) {
                 $imagePath = $payload['profile']->store('images', 'public');
                 $profileImage = explode('/', $imagePath)[1];
-                $singer->image()->updateOrCreate(['imageable_id' => $singer->id], [
+                $singer->profile()->updateOrCreate(['imageable_id' => $singer->id], [
                     'image' => $profileImage,
                     'imageable_id' => $singer->id,
                 ]);
