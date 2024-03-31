@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'paths' => ['hnk.innoscript.co/api/*', "api/*"],
+    'paths' => ['hnk.innoscript.co/api/*', 'api/*'],
 
     'allowed_methods' => ['*'],
 

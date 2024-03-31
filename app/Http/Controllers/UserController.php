@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserStoreRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Http\Requests\VoteGenreRequest;
+use App\Models\Genres;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Crypt;
@@ -123,10 +124,24 @@ class UserController extends Controller
         try {
 
             $user = User::findOrFail($id);
+
+            if ($user['vote_genre'] !== null) {
+                return $this->badRequest('user is already vote genre');
+            }
+
             $user->update($payload->toArray());
+
+            $genre = Genres::where([
+                'status' => 'ACTIVE',
+                'name' => $payload['vote_genre'],
+            ])->first();
+
+            $genrePayload = ['rate' => $genre['rate'] + 1];
+
+            $genre->update($genrePayload);
             DB::commit();
 
-            return $this->success('user is successfully vote genre', $user);
+            return $this->success('user is successfully vote genre', null);
 
         } catch (\Exception $e) {
             DB::rollback();
