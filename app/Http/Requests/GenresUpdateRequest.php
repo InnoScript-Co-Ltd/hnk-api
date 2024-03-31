@@ -25,6 +25,7 @@ class GenresUpdateRequest extends FormRequest
             'name' => 'nullable | string',
             'rate' => 'nullable | numeric',
             'icon' => 'nullable | image:mimes:jpeg,png,jpg,gif|max:2048',
+            'color' => 'nullable | string',
             'status' => 'nullable | in:ACTIVE,DISABLE',
         ];
     }
