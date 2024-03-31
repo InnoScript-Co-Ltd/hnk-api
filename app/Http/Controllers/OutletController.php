@@ -23,6 +23,7 @@ class OutletController extends Controller
 
         try {
             $outlets = Outlet::where($this->active)
+                ->with(['image'])
                 ->searchQuery()
                 ->sortingQuery()
                 ->filterQuery()
@@ -47,6 +48,11 @@ class OutletController extends Controller
         try {
 
             $outlet = Outlet::create($payload->toArray());
+            if (isset($payload['image'])) {
+                $imagePath = $payload['image']->store('images', 'public');
+                $profileImage = explode('/', $imagePath)[1];
+                $outlet->image()->create(['image' => $profileImage]);
+            }
             DB::commit();
 
             return $this->success('Outlet is created successfully', $outlet);
@@ -82,6 +88,15 @@ class OutletController extends Controller
             $outlet = Outlet::findOrFail($id);
 
             $outlet->update($payload->toArray());
+
+            if (isset($payload['image'])) {
+                $imagePath = $payload['image']->store('images', 'public');
+                $profileImage = explode('/', $imagePath)[1];
+                $outlet->image()->updateOrCreate(['imageable_id' => $outlet->id], [
+                    'image' => $profileImage,
+                    'imageable_id' => $outlet->id,
+                ]);
+            }
 
             DB::commit();
 

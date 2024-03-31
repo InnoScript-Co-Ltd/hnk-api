@@ -6,6 +6,7 @@ enum REGXEnum: string
 {
     case COUNTRY_CODE = "/^\+(?:[0-9]{1,3} ?)$/";
     case MOBILE_NUMBER = '/^[1-9]{1}+[0-9]{7,9}$/';
+    case LOCAL_NUMBER = '/^09[0-9]{9,11}$/';
     case NRC = "/^([0-9]{1,2})\/([A-Z]{5,12})\(([N,P,E,C])\)([0-9]{6})$/";
     case COLOR_CODE = "/(?:#|0x)(?:[a-f,A-F,0-9]{3}|[a-f,A-F,0-9]{6})\b|(?:rgb|hsl)a?\([^\)]*\)/";
     case URL = '/^https?:\\/\\/(?:www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b(?:[-a-zA-Z0-9()@:%_\\+.~#?&\\/=]*)$/';
