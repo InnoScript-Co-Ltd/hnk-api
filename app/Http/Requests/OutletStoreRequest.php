@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\REGXEnum;
 use Illuminate\Foundation\Http\FormRequest;
 
 class OutletStoreRequest extends FormRequest
@@ -21,9 +22,11 @@ class OutletStoreRequest extends FormRequest
      */
     public function rules(): array
     {
+        $mobileRule = REGXEnum::LOCAL_NUMBER->value;
+
         return [
             'name' => 'required|string|max:255',
-            'phone' => 'required|string|max:255',
+            'phone' => ["unique:outlets,phone", "regex:$mobileRule"],
             'address' => 'required|string',
             'date' => 'required|date',
             'time' => 'required|string',
@@ -31,6 +34,7 @@ class OutletStoreRequest extends FormRequest
             'promo_description' => 'required|string',
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
+            'image' => 'required | image:mimes:jpeg,png,jpg,gif|max:2048',
         ];
     }
 }

@@ -106,7 +106,7 @@ Route::middleware('jwt')->group(function () {
 
     Route::group(['prefix' => 'outlet'], function () {
         Route::post('/', 'OutletController@store');
-        Route::put('/{id}', 'OutletController@update');
+        Route::post('/{id}', 'OutletController@update');
         Route::delete('/{id}', 'OutletController@destroy');
     });
 

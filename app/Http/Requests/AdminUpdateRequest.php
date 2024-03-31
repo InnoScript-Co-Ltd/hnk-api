@@ -25,7 +25,7 @@ class AdminUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        $mobileRule = REGXEnum::MOBILE_NUMBER->value;
+        $mobileRule = REGXEnum::LOCAL_NUMBER->value;
         $adminStatusEnum = implode(',', (new Enum(AdminStatusEnum::class))->values());
         $user = Admin::findOrFail(request('id'));
         $userId = $user->id;

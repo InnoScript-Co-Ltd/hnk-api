@@ -17,4 +17,9 @@ class Outlet extends Model
     protected $fillable = [
         'name', 'phone', 'date', 'address', 'time', 'promotion', 'promo_description', 'latitude', 'longitude', 'status',
     ];
+
+    public function image()
+    {
+        return $this->morphOne(Image::class, 'imageable');
+    }
 }
