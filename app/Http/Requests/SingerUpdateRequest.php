@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Models\Singer;
+use App\Models\Song;
 use Illuminate\Foundation\Http\FormRequest;
 
 class SingerUpdateRequest extends FormRequest
@@ -22,12 +23,15 @@ class SingerUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
+        $songId = implode(',', Song::all()->pluck('id')->toArray());
         $singer = Singer::findOrFail(request('id'));
         $singerId = $singer->id;
 
         return [
             'name' => "nullable | string | unique:singers,name,$singerId",
             'profile' => 'nullable | image:mimes:jpeg,png,jpg,gif|max:2048',
+            "song_id"  => 'nullable',
+            "song_id.*" => "nullable | in:$songId",
             'status' => 'nullable | string | in:ACTIVE,DISABLE',
         ];
     }
