@@ -66,6 +66,7 @@ Route::group(['prefix' => 'video-upload'], function () {
 
 Route::group(['prefix' => 'singer-song'], function () {
     Route::get('/', 'SingerSongController@index');
+    Route::get('/{id}', 'SingerSongController@show');
 });
 
 Route::middleware('jwt')->group(function () {
@@ -130,6 +131,7 @@ Route::middleware('jwt')->group(function () {
 
     Route::group(['prefix' => 'singer-song'], function () {
         Route::post('/', 'SingerSongController@store');
+        Route::get('/', 'SingerSongController@index');
     });
 
     Route::group(['prefix' => 'lyric'], function () {
