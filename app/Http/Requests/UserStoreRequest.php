@@ -22,12 +22,12 @@ class UserStoreRequest extends FormRequest
      */
     public function rules(): array
     {
-        $mobileRule = REGXEnum::MOBILE_NUMBER->value;
+        $mobileRule = REGXEnum::LOCAL_NUMBER->value;
 
         return [
             'name' => 'required | string | max: 24 | min: 8',
             'email' => 'required | email | unique:users,email',
-            'phone' => ['required', 'unique:users,phone'],
+            'phone' => ['required', 'unique:users,phone', "regex:$mobileRule"],
             // 'is_accept' => ['required', 'boolean'],
             // 'dob' => ['required', 'date'],
             // 'gender' => ['required', 'string'],
