@@ -22,7 +22,7 @@ class UserLoginRequest extends FormRequest
      */
     public function rules(): array
     {
-        $mobileRule = REGXEnum::MOBILE_NUMBER->value;
+        $mobileRule = REGXEnum::LOCAL_NUMBER->value;
 
         return [
             'email' => ['required_without:phone', 'email'],
