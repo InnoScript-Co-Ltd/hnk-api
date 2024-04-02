@@ -27,7 +27,7 @@ class UserStoreRequest extends FormRequest
         return [
             'name' => 'required | string | max: 24 | min: 8',
             'email' => 'required | email | unique:users,email',
-            'phone' => ['required', 'unique:users,phone', "regex:$mobileRule"],
+            'phone' => ['required', 'unique:users,phone'],
             // 'is_accept' => ['required', 'boolean'],
             // 'dob' => ['required', 'date'],
             // 'gender' => ['required', 'string'],

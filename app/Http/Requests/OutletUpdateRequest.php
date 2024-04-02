@@ -29,7 +29,7 @@ class OutletUpdateRequest extends FormRequest
 
         return [
             'name' => 'nullable|string|max:255',
-            'phone' => ["nullable","unique:outlets,phone,$outletId", "regex:$mobileRule"],
+            'phone' => ['nullable', "unique:outlets,phone,$outletId", "regex:$mobileRule"],
             'address' => 'nullable|string',
             'date' => 'nullable|date',
             'time' => 'nullable|string|time',

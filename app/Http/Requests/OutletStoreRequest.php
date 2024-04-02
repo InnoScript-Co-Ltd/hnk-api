@@ -26,7 +26,7 @@ class OutletStoreRequest extends FormRequest
 
         return [
             'name' => 'required|string|max:255',
-            'phone' => ["unique:outlets,phone", "regex:$mobileRule"],
+            'phone' => ['unique:outlets,phone', "regex:$mobileRule"],
             'address' => 'required|string',
             'date' => 'required|date',
             'time' => 'required|string',
