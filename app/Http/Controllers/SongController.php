@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\SongStoreRequest;
 use App\Http\Requests\SongUpdateRequest;
 use App\Models\Song;
+use Exception;
 use Illuminate\Support\Facades\DB;
 
 class SongController extends Controller
@@ -35,6 +36,9 @@ class SongController extends Controller
         $payload = collect($request->validated());
 
         try {
+            $filePath = $payload['file_path']->store('audio', 'public');
+            $fileName = explode('/', $filePath)[1];
+            $payload['file_path'] = $fileName;
 
             $song = Song::create($payload->toArray());
             DB::commit();
@@ -71,6 +75,12 @@ class SongController extends Controller
 
             $song = Song::findOrFail($id);
 
+            if (isset($payload['file_path'])) {
+                $filePath = $payload['file_path']->store('audio', 'public');
+                $fileName = explode('/', $filePath)[1];
+                $payload['file_path'] = $fileName;
+            }
+
             $song->update($payload->toArray());
 
             DB::commit();
@@ -90,7 +100,7 @@ class SongController extends Controller
         try {
 
             $song = Song::findOrFail($id);
-            $song->delete($id);
+            $song->delete();
             DB::commit();
 
             return $this->success('Genres is deleted successfully', $song);
