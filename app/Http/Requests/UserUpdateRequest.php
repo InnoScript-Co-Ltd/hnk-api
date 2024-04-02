@@ -26,7 +26,7 @@ class UserUpdateRequest extends FormRequest
     public function rules(): array
     {
 
-        $mobileRule = REGXEnum::MOBILE_NUMBER->value;
+        $mobileRule = REGXEnum::LOCAL_NUMBER->value;
         $adminStatusEnum = implode(',', (new Enum(UserStatusEnum::class))->values());
         $user = User::findOrFail(request('id'));
         $userId = $user->id;
