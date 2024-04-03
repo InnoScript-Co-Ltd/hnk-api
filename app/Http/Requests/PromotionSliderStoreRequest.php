@@ -24,6 +24,7 @@ class PromotionSliderStoreRequest extends FormRequest
         return [
             'title' => 'required | string',
             'image' => 'required | image:mimes:jpeg,png,jpg,gif|max:2048',
+            'description' => 'nullable | string'
         ];
     }
 }
