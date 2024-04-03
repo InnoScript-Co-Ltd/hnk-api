@@ -15,7 +15,7 @@ class PromotionSlider extends Model
     protected $table = 'promotion_sliders';
 
     protected $fillable = [
-        'title', 'status',
+        'title', 'status', 'description'
     ];
 
     public function image()
