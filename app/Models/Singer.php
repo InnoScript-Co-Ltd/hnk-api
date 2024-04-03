@@ -15,11 +15,11 @@ class Singer extends Model
     protected $table = 'singers';
 
     protected $fillable = [
-        'name', 'status', 'song_id'
+        'name', 'status', 'song_id',
     ];
 
     protected $casts = [
-        "song_id" => "json"
+        'song_id' => 'json',
     ];
 
     public function profile()

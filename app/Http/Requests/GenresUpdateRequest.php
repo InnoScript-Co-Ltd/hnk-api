@@ -26,7 +26,8 @@ class GenresUpdateRequest extends FormRequest
             'rate' => 'nullable | numeric',
             'icon' => 'nullable | image:mimes:jpeg,png,jpg,gif|max:2048',
             'color' => 'nullable | string',
-            'status' => 'nullable | in:ACTIVE,DISABLE',
+            'auto_rate' => 'nullable | string | in:ACTIVE,DISABLE',
+            'status' => 'nullable | string | in:ACTIVE,DISABLE',
         ];
     }
 }
