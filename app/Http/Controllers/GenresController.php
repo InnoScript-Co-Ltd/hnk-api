@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\GenresStoreRequest;
 use App\Http\Requests\GenresUpdateRequest;
 use App\Models\Genres;
+use App\Models\User;
 use Exception;
 use Illuminate\Support\Facades\DB;
 
@@ -30,6 +31,23 @@ class GenresController extends Controller
                 ->filterDateQuery()
                 ->paginationQuery();
 
+            $userVotes = User::pluck('vote_genre');
+
+            $genres->map(function ($genre) use ($userVotes) {
+                $totalVote = $userVotes->filter(function ($vote) use ($genre) {
+                    if ($vote === $genre['name']) {
+                        return $vote;
+                    }
+                });
+
+                if ($genre['auto_rate'] === 'ACTIVE') {
+                    $genre['show_rate'] = count($totalVote->toArray()) * 100 / count($userVotes->toArray());
+                } else {
+                    $genre['show_rate'] = $genre['rate'] * 100 / 100;
+                }
+
+                return $genre;
+            });
             DB::commit();
 
             return $this->success('Genres list is successfully retrived', $genres);
@@ -84,15 +102,17 @@ class GenresController extends Controller
         DB::beginTransaction();
         try {
 
-            $genre = Genres::findOrFail($id);
+            $genre = Genres::with(['icon'])->findOrFail($id);
 
             $genre->update($payload->toArray());
 
-            if ($payload['icon']) {
+            if (isset($payload['icon'])) {
                 $imagePath = $payload['icon']->store('images', 'public');
                 $iconImage = explode('/', $imagePath)[1];
                 $genre->icon()->updateOrCreate(['image' => $iconImage]);
-                $genre['icon'] = $iconImage;
+                $genre['icon'] = [
+                    'image' => $iconImage,
+                ];
             }
             DB::commit();
 

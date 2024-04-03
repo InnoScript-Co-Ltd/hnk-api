@@ -25,7 +25,7 @@ class PromotionSliderUpdateRequest extends FormRequest
             'title' => 'nullable | string',
             'image' => 'nullable | image:mimes:jpeg,png,jpg,gif|max:2048',
             'status' => 'nullable | string | in:ACTIVE,DISABLE',
-            'description' => 'nullable | string'
+            'description' => 'nullable | string',
         ];
     }
 }

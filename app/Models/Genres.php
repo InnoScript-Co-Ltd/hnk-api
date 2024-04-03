@@ -15,12 +15,12 @@ class Genres extends Model
     protected $table = 'genres';
 
     protected $fillable = [
-        'name', 'rate', 'color', 'status',
+        'name', 'rate', 'color', 'auto_rate', 'status',
     ];
 
     public function icon()
     {
-        return $this->morphOne(Image::class, 'imageable');
+        return $this->morphOne(Image::class, 'imageable')->latest();
     }
 
     public function ratePercentage()

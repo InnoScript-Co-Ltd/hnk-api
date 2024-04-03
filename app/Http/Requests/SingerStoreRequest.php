@@ -28,7 +28,7 @@ class SingerStoreRequest extends FormRequest
             'name' => 'required|string|unique:singers,name',
             'profile' => 'required | image:mimes:jpeg,png,jpg,gif|max:2048',
             'song_id' => 'required',
-            'song_id.*' => "required | in:$songId"
+            'song_id.*' => "required | in:$songId",
         ];
     }
 }

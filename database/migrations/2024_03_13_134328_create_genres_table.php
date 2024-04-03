@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->unsignedBigInteger('rate')->nullable()->default(0);
             $table->string('color');
+            $table->string('auto_rate')->default('ACTIVE');
             $table->string('status')->default('ACTIVE');
             $table->auditColumns();
         });

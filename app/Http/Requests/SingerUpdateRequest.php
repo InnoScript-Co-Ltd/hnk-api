@@ -30,8 +30,8 @@ class SingerUpdateRequest extends FormRequest
         return [
             'name' => "nullable | string | unique:singers,name,$singerId",
             'profile' => 'nullable | image:mimes:jpeg,png,jpg,gif|max:2048',
-            "song_id"  => 'nullable',
-            "song_id.*" => "nullable | in:$songId",
+            'song_id' => 'nullable',
+            'song_id.*' => "nullable | in:$songId",
             'status' => 'nullable | string | in:ACTIVE,DISABLE',
         ];
     }
