@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('promotion_sliders', function (Blueprint $table) {
             $table->uuid('id')->primary()->unique()->index();
             $table->string('title');
+            $table->longtext('description')->nullable()->default(null);
             $table->string('status')->default('ACTIVE');
             $table->auditColumns();
         });
