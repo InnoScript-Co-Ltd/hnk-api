@@ -35,6 +35,11 @@ class OutletStoreRequest extends FormRequest
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
             'image' => 'required | image:mimes:jpeg,png,jpg,gif|max:2048',
+            'branch' => 'required|string',
+            'month' => 'required|date',
+            'activation_date' => 'required|date',
+            'description' => 'nullable|string',
+            'music_band' => 'required|string',
         ];
     }
 }
