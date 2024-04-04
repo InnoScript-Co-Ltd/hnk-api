@@ -69,6 +69,11 @@ Route::group(['prefix' => 'singer-song'], function () {
     Route::get('/{id}', 'SingerSongController@show');
 });
 
+Route::group(['prefix' => 'event'], function () {
+    Route::get('/', 'EventController@index');
+    Route::get('/{id}', 'EventController@show');
+});
+
 Route::middleware('jwt')->group(function () {
 
     Route::group(['prefix' => 'admin'], function () {
@@ -102,6 +107,7 @@ Route::middleware('jwt')->group(function () {
         Route::post('/', 'EventController@store');
         Route::get('/{id}', 'EventController@show');
         Route::post('/{id}', 'EventController@update');
+        Route::delete('/{id}', 'EventController@destroy');
     });
 
     Route::group(['prefix' => 'genre'], function () {

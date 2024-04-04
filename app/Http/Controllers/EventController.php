@@ -108,4 +108,21 @@ class EventController extends Controller
         }
     }
 
+    public function destroy($id)
+    {
+        DB::beginTransaction();
+        try {
+
+            $event = Event::findOrFail($id);
+            $event->delete($id);
+            DB::commit();
+
+            return $this->success('Event is deleted successfully', $event);
+
+        } catch (Exception $e) {
+            DB::rollback();
+            throw $e;
+        }
+    }
+
 }
