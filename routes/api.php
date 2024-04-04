@@ -97,6 +97,13 @@ Route::middleware('jwt')->group(function () {
         Route::delete('/{id}', 'PromotionSliderController@destroy');
     });
 
+    Route::group(['prefix' => 'event'], function () {
+        Route::get('/', 'EventController@index');
+        Route::post('/', 'EventController@store');
+        Route::get('/{id}', 'EventController@show');
+        Route::post('/{id}', 'EventController@update');
+    });
+
     Route::group(['prefix' => 'genre'], function () {
         Route::post('/', 'GenresController@store');
         Route::post('/{id}', 'GenresController@update');
