@@ -39,6 +39,11 @@ class OutletUpdateRequest extends FormRequest
             'longitude' => 'nullable|numeric',
             'status' => 'nullable | string | in:ACTIVE,DISABLE',
             'image' => 'nullable | image:mimes:jpeg,png,jpg,gif|max:2048',
+            'branch' => 'nullable|string',
+            'month' => 'nullable|date',
+            'activation_date' => 'nullable|date',
+            'description' => 'nullable|string',
+            'music_band' => 'nullable|string',
         ];
     }
 }
