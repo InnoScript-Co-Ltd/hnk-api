@@ -69,7 +69,7 @@ Route::group(['prefix' => 'singer-song'], function () {
     Route::get('/{id}', 'SingerSongController@show');
 });
 
-Route::group(['prefix' => 'event'], function () {
+Route::group(['prefix' => 'event-slider'], function () {
     Route::get('/', 'EventController@index');
     Route::get('/{id}', 'EventController@show');
 });
