@@ -35,7 +35,9 @@ class UserUpdateRequest extends FormRequest
             'name' => 'string | max: 24 | min: 4',
             'profile' => 'nullable | image:mimes:jpeg,png,jpg,gif|max:2048',
             'email' => "email | unique:users,email,$userId",
-            'phone' => ["unique:users,phone,$userId", "regex:$mobileRule"],
+            'phone' => ["unique:users,phone,$userId"],
+            "dob" => 'nullable|string',
+            "fav_music" => 'nullable|string',
             'status' => " nullable | in:$adminStatusEnum ",
         ];
     }

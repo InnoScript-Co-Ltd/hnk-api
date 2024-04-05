@@ -30,12 +30,13 @@ class User extends Authenticatable
         'token_expired',
         'gender',
         'vote_genre',
+        'fav_music'
     ];
 
     protected $table = 'users';
 
     protected $casts = [
-        'dob' => 'date',
+        'fav_music' => 'json',
         'is_accept' => 'boolean',
     ];
 

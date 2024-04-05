@@ -38,7 +38,7 @@ class OutletUpdateRequest extends FormRequest
             'latitude' => 'nullable|numeric',
             'longitude' => 'nullable|numeric',
             'status' => 'nullable | string | in:ACTIVE,DISABLE',
-            'image' => 'nullable | image:mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'nullable | image:mimes:jpeg,png,jpg|max:2048',
             'branch' => 'nullable|string',
             'month' => 'nullable|date',
             'activation_date' => 'nullable|date',

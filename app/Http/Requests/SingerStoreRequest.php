@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Song;
 use Illuminate\Foundation\Http\FormRequest;
 
 class SingerStoreRequest extends FormRequest
@@ -22,13 +21,10 @@ class SingerStoreRequest extends FormRequest
      */
     public function rules(): array
     {
-        $songId = implode(',', Song::all()->pluck('id')->toArray());
 
         return [
             'name' => 'required|string|unique:singers,name',
-            'profile' => 'required | image:mimes:jpeg,png,jpg,gif|max:2048',
-            'song_id' => 'required',
-            'song_id.*' => "required | in:$songId",
+            'profile' => 'required | image:mimes:jpeg,png,jpg|max:2048',
         ];
     }
 }
