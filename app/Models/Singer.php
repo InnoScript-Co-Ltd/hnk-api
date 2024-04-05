@@ -15,7 +15,7 @@ class Singer extends Model
     protected $table = 'singers';
 
     protected $fillable = [
-        'name', 'status', 'song_id',
+        'name', 'status',
     ];
 
     protected $casts = [

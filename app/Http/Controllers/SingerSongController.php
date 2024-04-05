@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SingerSongStoreRequest;
+use App\Http\Requests\SingerSongUpdateRequest;
 use App\Models\SingerSong;
 use Exception;
 use Illuminate\Support\Facades\DB;
@@ -14,6 +15,29 @@ class SingerSongController extends Controller
     public function __construct()
     {
         $this->active = Auth('api')->user() ? [] : ['status' => 'ACTIVE'];
+    }
+
+    public function singerInSong()
+    {
+        DB::beginTransaction();
+
+        try {
+            $singerSong = SingerSong::where(['status' => 'ACTIVE'])
+                ->with(['song', 'singer'])
+                ->searchQuery()
+                ->sortingQuery()
+                ->filterQuery()
+                ->filterDateQuery()
+                ->paginationQuery();
+
+            DB::commit();
+
+            return $this->success('Singer song list is successfully retrived', $singerSong);
+
+        } catch (Exception $e) {
+            DB::rollback();
+            throw $e;
+        } 
     }
 
     public function index()
@@ -68,5 +92,27 @@ class SingerSongController extends Controller
             DB::rollback();
             throw $e;
         }
+    }
+
+    public function update (SingerSongUpdateRequest $request, $id) 
+    {
+
+        $payload = collect($request->validated());
+        DB::beginTransaction();
+
+        try {
+
+            $singerSong = SingerSong::findOrFail($id);
+            $singerSong->update($payload->toArray());
+            DB::commit();
+
+            return $this->success('Singer song is updated successfully', $singerSong);
+
+
+        } catch (Exception $e) {
+            throw $e;
+            DB::rollback();
+        }
+
     }
 }

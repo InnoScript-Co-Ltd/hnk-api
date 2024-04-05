@@ -75,7 +75,7 @@ class SongController extends Controller
 
             $song = Song::findOrFail($id);
 
-            if (isset($payload['file_path'])) {
+            if (isset($payload['file_path']) && is_file($payload['file_path'])) {
                 $filePath = $payload['file_path']->store('audio', 'public');
                 $fileName = explode('/', $filePath)[1];
                 $payload['file_path'] = $fileName;
