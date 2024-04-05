@@ -64,8 +64,8 @@ Route::group(['prefix' => 'video-upload'], function () {
     Route::get('/{id}', 'VideoUploadController@show');
 });
 
-Route::group(['prefix' => 'singer-song'], function () {
-    Route::get('/', 'SingerSongController@index');
+Route::group(['prefix' => 'singer-in-song'], function () {
+    Route::get('/', 'SingerSongController@singerInSong');
     Route::get('/{id}', 'SingerSongController@show');
 });
 
@@ -92,7 +92,7 @@ Route::middleware('jwt')->group(function () {
 
     Route::group(['prefix' => 'singer'], function () {
         Route::post('/', 'SingerController@store');
-        Route::post('/{id}', 'SingerController@update');
+        Route::put('/{id}', 'SingerController@update');
         Route::delete('/{id}', 'SingerController@destroy');
     });
 
@@ -145,6 +145,7 @@ Route::middleware('jwt')->group(function () {
     Route::group(['prefix' => 'singer-song'], function () {
         Route::post('/', 'SingerSongController@store');
         Route::get('/', 'SingerSongController@index');
+        Route::put('/{id}', 'SingerSongController@update');
     });
 
     Route::group(['prefix' => 'lyric'], function () {

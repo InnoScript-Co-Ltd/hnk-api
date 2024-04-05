@@ -2,10 +2,11 @@
 
 namespace App\Http\Requests;
 
-use App\Enums\REGXEnum;
+use App\Models\Singer;
+use App\Models\Song;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserStoreRequest extends FormRequest
+class SingerSongUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,14 +23,13 @@ class UserStoreRequest extends FormRequest
      */
     public function rules(): array
     {
-        $mobileRule = REGXEnum::LOCAL_NUMBER->value;
+        $songId = implode(',', Song::all()->pluck('id')->toArray());
+        $singerId = implode(',', Singer::all()->pluck('id')->toArray());
 
         return [
-            'name' => 'required | string | max: 24 | min: 8',
-            'email' => 'required | email | unique:users,email',
-            'phone' => ['required', 'unique:users,phone'],
-            'dob' => 'required|string',
-            'fav_music' => 'required|array'
+            'song_id' => "required|in:$songId",
+            'singer_id' => "required|in:$singerId",
+            'status' => 'nullable | string | in:ACTIVE,DISABLE',
         ];
     }
 }

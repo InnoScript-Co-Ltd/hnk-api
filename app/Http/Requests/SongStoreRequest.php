@@ -23,7 +23,7 @@ class SongStoreRequest extends FormRequest
     {
         return [
             'name' => 'required | string',
-            'file_path' => 'required | file',
+            'file_path' => 'required|file|mimes:mp3',
         ];
     }
 }

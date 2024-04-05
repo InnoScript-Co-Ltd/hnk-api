@@ -19,6 +19,8 @@ class UserSeeder extends Seeder
             'name' => 'admin',
             'email' => 'admin@gmail.com',
             'phone' => '9421038123',
+            'dob' => '2002-2-2',
+            'fav_music' => null
             // 'gender' => 'male',
             // 'is_accept' => false,
         ];

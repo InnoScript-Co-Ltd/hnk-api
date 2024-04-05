@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('singers', function (Blueprint $table) {
             $table->uuid('id')->primary()->unique()->index();
             $table->string('name')->unique();
-            $table->json('song_id')->nullable()->default(null);
             $table->string('status')->default('ACTIVE');
             $table->auditColumns();
         });
