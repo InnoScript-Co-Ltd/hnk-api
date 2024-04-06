@@ -23,7 +23,10 @@ class SingerSongController extends Controller
 
         try {
             $singerSong = SingerSong::where(['status' => 'ACTIVE'])
-                ->with(['song', 'singer'])
+                ->with([
+                    'song', 
+                    'singer' => fn ($query) => $query->with(['profile'])
+                ])
                 ->searchQuery()
                 ->sortingQuery()
                 ->filterQuery()
