@@ -30,7 +30,7 @@ class User extends Authenticatable
         'token_expired',
         'gender',
         'vote_genre',
-        'fav_music'
+        'fav_music',
     ];
 
     protected $table = 'users';

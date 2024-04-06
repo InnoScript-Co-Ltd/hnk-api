@@ -29,7 +29,7 @@ class UserStoreRequest extends FormRequest
             'email' => 'required | email | unique:users,email',
             'phone' => ['required', 'unique:users,phone'],
             'dob' => 'required|string',
-            'fav_music' => 'required|array'
+            'fav_music' => 'required|array',
         ];
     }
 }

@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Event;
 use App\Http\Requests\EventStoreRequest;
 use App\Http\Requests\EventUpdateRequest;
-use Illuminate\Http\Request;
+use App\Models\Event;
 use Illuminate\Support\Facades\DB;
 
 class EventController extends Controller
@@ -15,7 +14,7 @@ class EventController extends Controller
 
         DB::beginTransaction();
 
-        try{
+        try {
 
             $event = Event::with(['coverPhoto'])
                 ->searchQuery()
@@ -42,7 +41,7 @@ class EventController extends Controller
 
             $event = Event::create($payload->toArray());
 
-            if(isset($payload['cover_photo'])){
+            if (isset($payload['cover_photo'])) {
                 $imagePath = $payload['cover_photo']->store('images', 'public');
                 $profileImage = explode('/', $imagePath)[1];
                 $event->coverPhoto()->create(['image' => $profileImage]);
@@ -86,7 +85,7 @@ class EventController extends Controller
 
             $event = Event::findOrFail($id);
 
-            if(isset($payload['cover_photo'])){
+            if (isset($payload['cover_photo'])) {
                 $imagePath = $payload['cover_photo']->store('images', 'public');
                 $eventImage = explode('/', $imagePath)[1];
                 $event->coverPhoto()->updateOrCreate(['imageable_id' => $event->id], [
@@ -100,7 +99,6 @@ class EventController extends Controller
             DB::commit();
 
             return $this->success('Event is updated successfully', $event);
-
 
         } catch (Exception $e) {
             throw $e;
@@ -124,5 +122,4 @@ class EventController extends Controller
             throw $e;
         }
     }
-
 }

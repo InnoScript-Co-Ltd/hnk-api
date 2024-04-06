@@ -92,7 +92,7 @@ Route::middleware('jwt')->group(function () {
 
     Route::group(['prefix' => 'singer'], function () {
         Route::post('/', 'SingerController@store');
-        Route::put('/{id}', 'SingerController@update');
+        Route::post('/{id}', 'SingerController@update');
         Route::delete('/{id}', 'SingerController@destroy');
     });
 

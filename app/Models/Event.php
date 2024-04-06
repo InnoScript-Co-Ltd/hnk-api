@@ -15,7 +15,7 @@ class Event extends Model
     protected $table = 'events';
 
     protected $fillable = [
-        'name', 'cover_photo', 'description', 'status'
+        'name', 'cover_photo', 'description', 'status',
     ];
 
     public function coverPhoto()

@@ -37,7 +37,7 @@ class SingerSongController extends Controller
         } catch (Exception $e) {
             DB::rollback();
             throw $e;
-        } 
+        }
     }
 
     public function index()
@@ -94,7 +94,7 @@ class SingerSongController extends Controller
         }
     }
 
-    public function update (SingerSongUpdateRequest $request, $id) 
+    public function update(SingerSongUpdateRequest $request, $id)
     {
 
         $payload = collect($request->validated());
@@ -107,7 +107,6 @@ class SingerSongController extends Controller
             DB::commit();
 
             return $this->success('Singer song is updated successfully', $singerSong);
-
 
         } catch (Exception $e) {
             throw $e;

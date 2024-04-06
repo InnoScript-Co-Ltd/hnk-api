@@ -22,9 +22,9 @@ class EventStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "name" => "required|string",
-            "cover_photo" => "required|file",
-            "description" => "nullable|string"
+            'name' => 'required|string',
+            'cover_photo' => 'required|file',
+            'description' => 'nullable|string',
         ];
     }
 }
