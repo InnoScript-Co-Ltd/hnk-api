@@ -22,9 +22,9 @@ class EventUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "name" => "nullable|string",
-            "cover_photo" => "nullable|file",
-            "description" => "nullable|string",
+            'name' => 'nullable|string',
+            'cover_photo' => 'nullable|file',
+            'description' => 'nullable|string',
             'status' => 'nullable | string | in:ACTIVE,DISABLE',
         ];
     }

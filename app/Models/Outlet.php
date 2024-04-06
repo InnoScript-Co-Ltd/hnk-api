@@ -16,7 +16,7 @@ class Outlet extends Model
 
     protected $fillable = [
         'name', 'phone', 'date', 'address', 'time', 'promotion', 'promo_description', 'latitude', 'longitude', 'status',
-        'branch', 'month', 'activation_date', 'description', 'music_band'
+        'branch', 'month', 'activation_date', 'description', 'music_band',
     ];
 
     public function image()
