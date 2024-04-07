@@ -14,7 +14,7 @@ class SingerSong extends Model
     protected $table = 'singer_songs';
 
     protected $fillable = [
-        'song_id', 'singer_id', 'status',
+        'song_id', 'singer_id', 'color', 'sologram', 'status',
     ];
 
     public function song(): BelongsTo
