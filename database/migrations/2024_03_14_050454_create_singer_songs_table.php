@@ -15,6 +15,8 @@ return new class extends Migration
             $table->uuid('id')->primary()->unique()->index();
             $table->foreignUuid('song_id')->constrained();
             $table->foreignUuid('singer_id')->constrained();
+            $table->string('color')->nullable()->default(null);
+            $table->longtext('sologram')->nullable()->default(null);
             $table->string('status')->default('ACTIVE');
             $table->timestamps();
         });
