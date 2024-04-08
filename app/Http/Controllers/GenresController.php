@@ -104,9 +104,7 @@ class GenresController extends Controller
 
             $genre = Genres::with(['icon'])->findOrFail($id);
 
-            $genre->update($payload->toArray());
-
-            if (isset($payload['icon'])) {
+            if (isset($payload['icon']) && is_file($payload['icon'])) {
                 $imagePath = $payload['icon']->store('images', 'public');
                 $iconImage = explode('/', $imagePath)[1];
                 $genre->icon()->updateOrCreate(['image' => $iconImage]);
@@ -114,6 +112,8 @@ class GenresController extends Controller
                     'image' => $iconImage,
                 ];
             }
+
+            $genre->update($payload->toArray());
             DB::commit();
 
             return $this->success('Genre is updated successfully', $genre);
