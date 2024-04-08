@@ -26,7 +26,7 @@ class UserStoreRequest extends FormRequest
 
         return [
             'name' => 'required | string | max: 24 | min: 8',
-            'email' => 'required | email | unique:users,email',
+            'email' => 'required | email',
             'phone' => ['required', 'unique:users,phone'],
             'dob' => 'required|string',
             'fav_music' => 'required|array',
