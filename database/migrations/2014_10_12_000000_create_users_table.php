@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->uuid('id')->primary()->unique()->index();
             $table->string('name');
-            $table->string('phone')->unique()->nullable()->default(null);
-            $table->string('email')->unique()->nullable()->default(null);
+            $table->string('phone');
+            $table->string('email');
             $table->string('dob');
             $table->json('fav_music')->nullable()->default(null);
             $table->longText('token')->nullable()->default(null);
