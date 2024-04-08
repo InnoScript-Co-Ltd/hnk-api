@@ -67,7 +67,7 @@ class OutletController extends Controller
     {
         DB::beginTransaction();
         try {
-            $outlet = Outlet::where($this->active)->findOrFail($id);
+            $outlet = Outlet::with(['image'])->where($this->active)->findOrFail($id);
             DB::commit();
 
             return $this->success('Outlet detail is successfully retrived', $outlet);

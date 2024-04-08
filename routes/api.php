@@ -76,6 +76,11 @@ Route::group(['prefix' => 'event-slider'], function () {
 
 Route::middleware('jwt')->group(function () {
 
+    Route::group(['prefix' => 'count'], function () {
+        Route::get('/user-vote', 'DashboardController@userVotecount');
+        Route::get('/user', 'DashboardController@user');
+    });
+
     Route::group(['prefix' => 'admin'], function () {
         Route::get('/', 'AdminController@index');
         Route::post('/', 'AdminController@store');

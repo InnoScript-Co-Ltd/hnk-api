@@ -77,9 +77,8 @@ class SingerController extends Controller
         try {
 
             $singer = Singer::findOrFail($id);
-            $singer->update($payload->toArray());
 
-            if (isset($payload['profile'])) {
+            if (isset($payload['profile']) && is_file($payload['profile'])) {
                 $imagePath = $payload['profile']->store('images', 'public');
                 $profileImage = explode('/', $imagePath)[1];
                 $singer->profile()->updateOrCreate(['imageable_id' => $singer->id], [
@@ -89,6 +88,8 @@ class SingerController extends Controller
 
                 $singer['profile'] = $profileImage;
             }
+
+            $singer->update($payload->toArray());
 
             DB::commit();
 
