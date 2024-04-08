@@ -30,7 +30,7 @@ class SingerSongStoreRequest extends FormRequest
             'song_id' => "required|in:$songId",
             'singer_id' => "required|in:$singerId",
             'color' => 'nullable|string',
-            'sologram' => 'nullable|string'
+            'sologram' => 'nullable|string',
         ];
     }
 }

@@ -24,8 +24,8 @@ class SingerSongController extends Controller
         try {
             $singerSong = SingerSong::where(['status' => 'ACTIVE'])
                 ->with([
-                    'song', 
-                    'singer' => fn ($query) => $query->with(['profile'])
+                    'song',
+                    'singer' => fn ($query) => $query->with(['profile']),
                 ])
                 ->searchQuery()
                 ->sortingQuery()
@@ -49,7 +49,7 @@ class SingerSongController extends Controller
 
         try {
             $singerSong = SingerSong::where($this->active)
-                ->with(['song', 'singer' => fn($query) => $query->with(['profile'])])
+                ->with(['song', 'singer' => fn ($query) => $query->with(['profile'])])
                 ->searchQuery()
                 ->sortingQuery()
                 ->filterQuery()
@@ -70,11 +70,10 @@ class SingerSongController extends Controller
     {
         DB::beginTransaction();
         try {
-            $singerSong = SingerSong::with(['song', 'singer'])->where($this->active)->findOrFail($id);
+            $singerSong = SingerSong::with(['song', 'singer' => fn ($query) => $query->with(['profile'])])->where($this->active)->findOrFail($id);
             DB::commit();
 
             return $this->success('Singer song detail is successfully retrived', $singerSong);
-
         } catch (Exception $e) {
             DB::rollback();
             throw $e;
@@ -112,8 +111,8 @@ class SingerSongController extends Controller
             return $this->success('Singer song is updated successfully', $singerSong);
 
         } catch (Exception $e) {
-            throw $e;
             DB::rollback();
+            throw $e;
         }
 
     }

@@ -31,7 +31,7 @@ class SingerSongUpdateRequest extends FormRequest
             'singer_id' => "required|in:$singerId",
             'status' => 'nullable | string | in:ACTIVE,DISABLE',
             'color' => 'nullable|string',
-            'sologram' => 'nullable|string'
+            'sologram' => 'nullable|string',
         ];
     }
 }

@@ -23,11 +23,11 @@ return new class extends Migration
             $table->longText('promo_description')->nullable();
             $table->float('latitude', 9, 6)->nullable();
             $table->float('longitude', 9, 6)->nullable();
-            $table->string('branch');
-            $table->date('month');
-            $table->date('activation_date');
+            $table->string('branch')->nullable()->default(null);
+            $table->date('month')->nullable()->default(null);
+            $table->date('activation_date')->nullable()->default(null);
             $table->longtext('description')->nullable()->default(null);
-            $table->string('music_band');
+            $table->string('music_band')->nullable()->default(null);
             $table->string('status')->default('ACTIVE');
             $table->auditColumns();
         });
