@@ -85,7 +85,7 @@ class OutletController extends Controller
         DB::beginTransaction();
         try {
 
-            $outlet = Outlet::findOrFail($id);
+            $outlet = Outlet::with(['image'])->findOrFail($id);
 
             $outlet->update($payload->toArray());
 
@@ -96,6 +96,9 @@ class OutletController extends Controller
                     'image' => $profileImage,
                     'imageable_id' => $outlet->id,
                 ]);
+                $outlet["image"] = [
+                    "image" => $profileImage
+                ];
             }
 
             DB::commit();
