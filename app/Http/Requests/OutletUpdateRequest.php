@@ -32,7 +32,7 @@ class OutletUpdateRequest extends FormRequest
             'phone' => ['nullable', "unique:outlets,phone,$outletId", "regex:$mobileRule"],
             'address' => 'nullable|string',
             'date' => 'nullable|date',
-            'time' => 'nullable|string|time',
+            'time' => 'nullable|string',
             'promotion' => 'nullable|string|max:255',
             'promo_description' => 'nullable|string',
             'latitude' => 'nullable|numeric',
