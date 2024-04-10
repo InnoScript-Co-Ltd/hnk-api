@@ -42,8 +42,8 @@ class OutletUpdateRequest extends FormRequest
             'branch' => 'nullable|string',
             'month' => 'nullable| string',
             'activation_date' => 'nullable | string',
-            'description' => 'nullable|string',
-            'music_band' => 'nullable|string',
+            'month' => 'nullable|string',
+            'activation_date' => 'nullable|string',
         ];
     }
 }
