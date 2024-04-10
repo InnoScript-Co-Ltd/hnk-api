@@ -107,10 +107,10 @@ class GenresController extends Controller
             if (isset($payload['icon']) && is_file($payload['icon'])) {
                 $imagePath = $payload['icon']->store('images', 'public');
                 $iconImage = explode('/', $imagePath)[1];
-                $genre->icon()->updateOrCreate(['image' => $iconImage]);
-                $genre['icon'] = [
+                $genre->icon()->updateOrCreate(['imageable_id' => $genre->id], [
                     'image' => $iconImage,
-                ];
+                    'imageable_id' => $genre->id,
+                ]);
             }
 
             $genre->update($payload->toArray());
