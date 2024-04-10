@@ -96,8 +96,8 @@ class OutletController extends Controller
                     'image' => $profileImage,
                     'imageable_id' => $outlet->id,
                 ]);
-                $outlet["image"] = [
-                    "image" => $profileImage
+                $outlet['image'] = [
+                    'image' => $profileImage,
                 ];
             }
 
