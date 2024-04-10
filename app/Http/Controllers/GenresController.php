@@ -102,15 +102,15 @@ class GenresController extends Controller
         DB::beginTransaction();
         try {
 
-            $genre = Genres::with(['icon'])->findOrFail($id);
+            $genre = Genres::findOrFail($id);
 
-            if (isset($payload['icon']) && is_file($payload['icon'])) {
+            if (isset($payload['icon'])) {
                 $imagePath = $payload['icon']->store('images', 'public');
                 $iconImage = explode('/', $imagePath)[1];
-                $genre->icon()->updateOrCreate(['image' => $iconImage]);
-                $genre['icon'] = [
+                $genre->icon()->updateOrCreate(['imageable_id' => $genre->id], [
                     'image' => $iconImage,
-                ];
+                    'imageable_id' => $genre->id,
+                ]);
             }
 
             $genre->update($payload->toArray());

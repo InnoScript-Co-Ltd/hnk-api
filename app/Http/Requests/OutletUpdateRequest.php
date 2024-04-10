@@ -40,8 +40,8 @@ class OutletUpdateRequest extends FormRequest
             'status' => 'nullable | string | in:ACTIVE,DISABLE',
             'image' => 'nullable | image:mimes:jpeg,png,jpg|max:2048',
             'branch' => 'nullable|string',
-            'month' => 'nullable|date',
-            'activation_date' => 'nullable|date',
+            'month' => 'nullable|string',
+            'activation_date' => 'nullable|string',
             'description' => 'nullable|string',
             'music_band' => 'nullable|string',
         ];
