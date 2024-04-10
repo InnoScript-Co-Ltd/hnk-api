@@ -24,8 +24,8 @@ return new class extends Migration
             $table->float('latitude', 9, 6)->nullable();
             $table->float('longitude', 9, 6)->nullable();
             $table->string('branch')->nullable()->default(null);
-            $table->date('month')->nullable()->default(null);
-            $table->date('activation_date')->nullable()->default(null);
+            $table->string('month')->nullable()->default(null);
+            $table->string('activation_date')->nullable()->default(null);
             $table->longtext('description')->nullable()->default(null);
             $table->string('music_band')->nullable()->default(null);
             $table->string('status')->default('ACTIVE');

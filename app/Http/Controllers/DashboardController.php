@@ -4,20 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Models\Genres;
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Exception;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
-    public function user() {
+    public function user()
+    {
 
         DB::beginTransaction();
         try {
-                
+
             $user = User::all()->count();
             $format = [
-                "user" => $user
+                'user' => $user,
             ];
             DB::commit();
 
@@ -30,7 +30,7 @@ class DashboardController extends Controller
 
     }
 
-    public function userVotecount () 
+    public function userVotecount()
     {
         DB::beginTransaction();
         try {
@@ -42,24 +42,23 @@ class DashboardController extends Controller
             })->toArray();
 
             $votes[''] = $votes[''] ?? 0; // If there are no users with empty string vote, set count to 0
-            
+
             foreach ($genres as $genre) {
                 $votes[$genre] = $votes[$genre] ?? 0; // If there are no users for this genre, set count to 0
             }
 
             // dd($votes);
             $object = [
-                "none" => $votes[''],
-                "Rock" => $votes["Rock"],
-                "R&B" => $votes['R&B'],
-                "Pop" => $votes['Pop'],
-                "Rap" => $votes['Rap']
+                'none' => $votes[''],
+                'Rock' => $votes['Rock'],
+                'R&B' => $votes['R&B'],
+                'Pop' => $votes['Pop'],
+                'Rap' => $votes['Rap'],
             ];
 
             DB::commit();
 
             return $this->success('User vote count is successfully retrived', $object);
-
 
         } catch (Exception $e) {
             throw $e;
