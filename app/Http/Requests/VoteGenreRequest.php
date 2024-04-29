@@ -26,6 +26,7 @@ class VoteGenreRequest extends FormRequest
 
         return [
             'vote_genre' => "required | string | in:$genres",
+            'type' => 'required | string',
         ];
     }
 }

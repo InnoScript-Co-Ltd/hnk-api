@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('phone');
             $table->string('email');
+            $table->string('type');
             $table->string('dob');
             $table->json('fav_music')->nullable()->default(null);
             $table->longText('token')->nullable()->default(null);
