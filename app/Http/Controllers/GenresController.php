@@ -41,7 +41,7 @@ class GenresController extends Controller
                 });
 
                 if ($genre['auto_rate'] === 'ACTIVE') {
-                    $genre['show_rate'] = count($totalVote->toArray()) * 100 / count($userVotes->toArray());
+                    $genre['show_rate'] = count($userVotes->toArray()) > 0 ? count($totalVote->toArray()) * 100 / count($userVotes->toArray()) : 0;
                 } else {
                     $genre['show_rate'] = $genre['rate'] * 100 / 100;
                 }
