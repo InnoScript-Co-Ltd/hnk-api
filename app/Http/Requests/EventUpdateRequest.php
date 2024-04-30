@@ -24,8 +24,13 @@ class EventUpdateRequest extends FormRequest
         return [
             'name' => 'nullable|string',
             'cover_photo' => 'nullable|file',
-            'description' => 'nullable|string',
             'status' => 'nullable | string | in:ACTIVE,DISABLE',
+            'location' => 'string',
+            'address' => 'string',
+            'phone' => 'string',
+            'date' => 'string',
+            'time' => 'string',
+            'promotion' => 'string',
         ];
     }
 }

@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'paths' => ['https://dashboard.refreshyourmusichnk.com/*', 'https://refreshyourmusichnk.com/*', 'http://hnk.dashboard.innoscript.co/*', 'http://hnk.innoscript.co/*'],
+    'paths' => ['https://dashboard.refreshyourmusichnk.com/*', 'https://refreshyourmusichnk.com/*', 'http://hnk.dashboard.innoscript.co/*', 'http://hnk.innoscript.co/*', '*'],
 
     'allowed_methods' => ['*'],
 

@@ -24,7 +24,12 @@ class EventStoreRequest extends FormRequest
         return [
             'name' => 'required|string',
             'cover_photo' => 'required|file',
-            'description' => 'nullable|string',
+            'location' => 'string',
+            'address' => 'string',
+            'phone' => 'string',
+            'date' => 'string',
+            'time' => 'string',
+            'promotion' => 'string',
         ];
     }
 }

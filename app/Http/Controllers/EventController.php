@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\EventStoreRequest;
 use App\Http\Requests\EventUpdateRequest;
 use App\Models\Event;
+use Exception;
 use Illuminate\Support\Facades\DB;
 
 class EventController extends Controller
@@ -28,8 +29,8 @@ class EventController extends Controller
             return $this->success('Event list is successfully retrived', $event);
 
         } catch (Exception $e) {
-            throw $e;
             DB::rollback();
+            throw $e;
         }
     }
 
@@ -53,8 +54,8 @@ class EventController extends Controller
             return $this->success('Event is created successfully', $event);
 
         } catch (Exception $e) {
-            throw $e;
             DB::rollback();
+            throw $e;
         }
 
     }
@@ -71,8 +72,8 @@ class EventController extends Controller
             return $this->success('Event detail is successfully retrived', $event);
 
         } catch (Exception $e) {
-            throw $e;
             DB::rollback();
+            throw $e;
         }
     }
 
@@ -101,8 +102,8 @@ class EventController extends Controller
             return $this->success('Event is updated successfully', $event);
 
         } catch (Exception $e) {
-            throw $e;
             DB::rollback();
+            throw $e;
         }
     }
 
@@ -112,7 +113,7 @@ class EventController extends Controller
         try {
 
             $event = Event::findOrFail($id);
-            $event->delete($id);
+            $event->delete();
             DB::commit();
 
             return $this->success('Event is deleted successfully', $event);
