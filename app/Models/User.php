@@ -26,6 +26,7 @@ class User extends Authenticatable
         'phone',
         'dob',
         'is_accept',
+        'type',
         'token',
         'token_expired',
         'gender',

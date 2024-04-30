@@ -14,8 +14,13 @@ return new class extends Migration
         Schema::create('events', function (Blueprint $table) {
             $table->uuid('id')->primary()->unique()->index();
             $table->string('name');
-            $table->longtext('description')->nullable()->default(null);
             $table->string('cover_photo');
+            $table->string('location')->nullable()->default(null);
+            $table->string('address')->nullable()->default(null);
+            $table->string('phone')->nullable()->default(null);
+            $table->string('date')->nullable()->default(null);
+            $table->string('time')->nullable()->default(null);
+            $table->string('promotion')->nullable()->default(null);
             $table->string('status')->default('ACTIVE');
             $table->auditColumns();
         });
