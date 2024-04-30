@@ -24,8 +24,8 @@ class DashboardController extends Controller
             return $this->success('User count is successfully retrived', $format);
 
         } catch (Exception $e) {
-            throw $e;
             DB::rollback();
+            throw $e;
         }
 
     }
@@ -33,36 +33,27 @@ class DashboardController extends Controller
     public function userVotecount()
     {
         DB::beginTransaction();
+
         try {
-
             $genres = Genres::pluck('name')->toArray();
-
-            $votes = User::all()->groupBy('vote_genre')->map(function ($users, $genre) {
-                return count($users);
-            })->toArray();
-
-            $votes[''] = $votes[''] ?? 0; // If there are no users with empty string vote, set count to 0
+            $votes = User::all()->groupBy('vote_genre')->toArray();
+            $voteResult = [];
 
             foreach ($genres as $genre) {
-                $votes[$genre] = $votes[$genre] ?? 0; // If there are no users for this genre, set count to 0
+                if (isset($votes[$genre])) {
+                    array_push($voteResult, [
+                        'genre' => $genre,
+                        'count' => count($votes[$genre]),
+                    ]);
+                }
             }
-
-            // dd($votes);
-            $object = [
-                'none' => $votes[''],
-                'Rock' => $votes['Rock'],
-                'R&B' => $votes['R&B'],
-                'Pop' => $votes['Pop'],
-                'Rap' => $votes['Rap'],
-            ];
 
             DB::commit();
 
-            return $this->success('User vote count is successfully retrived', $object);
-
+            return $this->success('User vote count is successfully retrived', $voteResult);
         } catch (Exception $e) {
-            throw $e;
             DB::rollback();
+            throw $e;
         }
     }
 }
