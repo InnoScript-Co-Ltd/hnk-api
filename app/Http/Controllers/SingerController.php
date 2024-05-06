@@ -14,8 +14,7 @@ class SingerController extends Controller
         DB::beginTransaction();
 
         try {
-            $singer = Singer::with(['profile'])
-                ->searchQuery()
+            $singer = Singer::searchQuery()
                 ->sortingQuery()
                 ->filterQuery()
                 ->filterDateQuery()
@@ -36,14 +35,27 @@ class SingerController extends Controller
         $payload = collect($request->validated());
 
         try {
-            $singer = Singer::create($payload->except('profile')->toArray());
 
             if (isset($payload['profile'])) {
                 $imagePath = $payload['profile']->store('images', 'public');
                 $profileImage = explode('/', $imagePath)[1];
-                $singer->profile()->create(['image' => $profileImage]);
-                $singer['profile'] = $profileImage;
+                $payload['profile'] = $profileImage;
             }
+
+            if (isset($payload['cover_photo'])) {
+                $imagePath = $payload['cover_photo']->store('images', 'public');
+                $coverPhotoImage = explode('/', $imagePath)[1];
+                $payload['cover_photo'] = $coverPhotoImage;
+            }
+
+            if (isset($payload['slider_image'])) {
+                $imagePath = $payload['slider_image']->store('images', 'public');
+                $sliderImage = explode('/', $imagePath)[1];
+                $payload['slider_image'] = $sliderImage;
+            }
+
+            $singer = Singer::create($payload->toArray());
+
             DB::commit();
 
             return $this->success('Singer is created successfully', $singer);
@@ -58,7 +70,7 @@ class SingerController extends Controller
     {
         DB::beginTransaction();
         try {
-            $singer = Singer::with(['profile'])->findOrFail($id);
+            $singer = Singer::with(['videos'])->findOrFail($id);
             DB::commit();
 
             return $this->success('Singer detail is successfully retrived', $singer);
@@ -78,15 +90,22 @@ class SingerController extends Controller
 
             $singer = Singer::findOrFail($id);
 
-            if (isset($payload['profile']) && is_file($payload['profile'])) {
+            if (isset($payload['profile'])) {
                 $imagePath = $payload['profile']->store('images', 'public');
                 $profileImage = explode('/', $imagePath)[1];
-                $singer->profile()->updateOrCreate(['imageable_id' => $singer->id], [
-                    'image' => $profileImage,
-                    'imageable_id' => $singer->id,
-                ]);
+                $payload['slider_image'] = $profileImage;
+            }
 
-                $singer['profile'] = $profileImage;
+            if (isset($payload['cover_photo'])) {
+                $imagePath = $payload['cover_photo']->store('images', 'public');
+                $coverPhotoImage = explode('/', $imagePath)[1];
+                $payload['cover_photo'] = $coverPhotoImage;
+            }
+
+            if (isset($payload['slider_image'])) {
+                $imagePath = $payload['slider_image']->store('images', 'public');
+                $sliderImage = explode('/', $imagePath)[1];
+                $payload['slider_image'] = $sliderImage;
             }
 
             $singer->update($payload->toArray());
@@ -99,7 +118,6 @@ class SingerController extends Controller
             DB::rollback();
             throw $e;
         }
-
     }
 
     public function destroy($id)

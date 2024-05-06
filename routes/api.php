@@ -69,6 +69,13 @@ Route::group(['prefix' => 'singer-in-song'], function () {
     Route::get('/{id}', 'SingerSongController@show');
 });
 
+Route::group(['prefix' => 'video-in-singer'], function () {
+    Route::get('/', 'VideoInSingerController@index');
+    Route::get('/{id}', 'VideoInSingerController@show');
+    Route::get('{id}/list', 'VideoInSingerController@showList');
+    Route::delete('{id}', 'VideoInSingerController@destroy');
+});
+
 Route::group(['prefix' => 'event-slider'], function () {
     Route::get('/', 'EventController@index');
     Route::get('/{id}', 'EventController@show');
@@ -99,6 +106,12 @@ Route::middleware('jwt')->group(function () {
         Route::post('/', 'SingerController@store');
         Route::post('/{id}', 'SingerController@update');
         Route::delete('/{id}', 'SingerController@destroy');
+    });
+
+    Route::group(['prefix' => 'video-in-singer'], function () {
+        Route::post('/', 'VideoInSingerController@store');
+        Route::post('/{id}', 'VideoInSingerController@update');
+        Route::delete('/{id}', 'VideoInSingerController@destroy');
     });
 
     Route::group(['prefix' => 'promotion-slider'], function () {
