@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SingerStoreRequest extends FormRequest
+class VideoInSingerUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,14 +21,12 @@ class SingerStoreRequest extends FormRequest
      */
     public function rules(): array
     {
-
         return [
-            'name' => 'required|string|unique:singers,name',
-            'slider_description' => 'required | string',
-            'slider_image' => 'required | image:mimes:jpeg,png,jpg|max:2048',
-            'cover_photo' => 'required | image:mimes:jpeg,png,jpg|max:2048',
-            'detail_title' => 'required |string',
-            'profile' => 'required | image:mimes:jpeg,png,jpg|max:2048',
+            'singer_id' => 'nullable',
+            'video' => 'nullable',
+            'title' => 'nullable | string',
+            'album_name' => 'nullable | string',
+            'status' => 'nullable | string',
         ];
     }
 }

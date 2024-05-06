@@ -28,6 +28,10 @@ class SingerUpdateRequest extends FormRequest
         return [
             'name' => "nullable | string | unique:singers,name,$singerId",
             'profile' => 'nullable | image:mimes:jpeg,png,jpg|max:2048',
+            'slider_description' => 'nullable | string',
+            'slider_image' => 'nullable | image:mimes:jpeg,png,jpg|max:2048',
+            'cover_photo' => 'nullable | image:mimes:jpeg,png,jpg|max:2048',
+            'detail_title' => 'nullable |string',
             'status' => 'nullable | string | in:ACTIVE,DISABLE',
         ];
     }

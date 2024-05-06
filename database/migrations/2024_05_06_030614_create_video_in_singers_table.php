@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('singers', function (Blueprint $table) {
+        Schema::create('video_in_singers', function (Blueprint $table) {
             $table->uuid('id')->primary()->unique()->index();
-            $table->string('name')->unique();
-            $table->string('profile')->nullable();
-            $table->string('slider_image')->nullable();
-            $table->string('detail_title')->nullable();
-            $table->string('slider_description')->nullable();
-            $table->string('cover_photo')->nullable();
+            $table->foreignUuid('singer_id')->constrained();
+            $table->string('title');
+            $table->string('album_name');
+            $table->string('video');
             $table->string('status')->default('ACTIVE');
             $table->auditColumns();
         });
@@ -29,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('singers');
+        Schema::dropIfExists('video_in_singers');
     }
 };

@@ -15,15 +15,16 @@ class Singer extends Model
     protected $table = 'singers';
 
     protected $fillable = [
-        'name', 'status',
-    ];
-
-    protected $casts = [
-        'song_id' => 'json',
+        'name', 'profile', 'slider_image', 'cover_photo', 'slider_description', 'detail_title', 'status',
     ];
 
     public function profile()
     {
         return $this->morphOne(Image::class, 'imageable');
+    }
+
+    public function videos()
+    {
+        return $this->hasMany(VideoInSinger::class, 'singer_id', 'id');
     }
 }
