@@ -24,12 +24,13 @@ class EventStoreRequest extends FormRequest
         return [
             'name' => 'required|string',
             'cover_photo' => 'required|file',
-            'location' => 'string',
-            'address' => 'string',
-            'phone' => 'string',
-            'date' => 'string',
-            'time' => 'string',
-            'promotion' => 'string',
+            'location' => 'nullable | string',
+            'address' => 'nullable | string',
+            'phone' => 'nullable | string',
+            'date' => 'nullable | string',
+            'time' => 'nullable | string',
+            'promotion' => 'nullable | string',
+            'artist_lineup' => 'nullable | string',
         ];
     }
 }
