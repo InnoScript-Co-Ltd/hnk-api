@@ -24,6 +24,8 @@ class Event extends Model
         'date',
         'time',
         'promotion',
+        'artist_lineup',
+        'status',
     ];
 
     public function coverPhoto()
