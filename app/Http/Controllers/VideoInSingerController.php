@@ -41,7 +41,6 @@ class VideoInSingerController extends Controller
     public function showList($id)
     {
         DB::beginTransaction();
-
         try {
             $videoInSinger = VideoInSinger::where([
                 'status' => 'ACTIVE',
@@ -63,15 +62,16 @@ class VideoInSingerController extends Controller
     {
         $payload = collect($request->validated());
 
+        info($payload);
         try {
 
-            $videoPath = $payload['video'];
-            $originName = $videoPath->getClientOriginalName();
-            $extension = $videoPath->getClientOriginalExtension();
-            $fileName = pathinfo($originName, PATHINFO_FILENAME);
-            $fileName = $fileName.'_'.uniqid().'.'.$extension;
-            $videoPath->move(public_path('video'), $fileName);
-            $payload['video'] = $fileName;
+            // $videoPath = $payload['video'];
+            // $originName = $videoPath->getClientOriginalName();
+            // $extension = $videoPath->getClientOriginalExtension();
+            // $fileName = pathinfo($originName, PATHINFO_FILENAME);
+            // $fileName = $fileName.'_'.uniqid().'.'.$extension;
+            // $videoPath->move(public_path('video'), $fileName);
+            // $payload['video'] = $fileName;
 
             $videoInSinger = VideoInSinger::create($payload->toArray());
             DB::commit();
@@ -80,6 +80,7 @@ class VideoInSingerController extends Controller
 
         } catch (\Exception $e) {
             DB::rollback();
+            info($e);
             throw $e;
         }
     }
