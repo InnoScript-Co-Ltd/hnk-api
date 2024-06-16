@@ -25,9 +25,9 @@ class UserStoreRequest extends FormRequest
         $mobileRule = REGXEnum::LOCAL_NUMBER->value;
 
         return [
-            'name' => 'required | string | max: 24 | min: 8',
+            'name' => 'required | string',
             'email' => 'required | email',
-            'phone' => ['required', 'unique:users,phone'],
+            'phone' => ['required'],
             'dob' => 'required|string',
             'fav_music' => 'required|array',
         ];
