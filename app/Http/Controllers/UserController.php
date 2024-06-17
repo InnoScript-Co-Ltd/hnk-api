@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\UserExport;
+use App\Http\Requests\UserFilterRequest;
 use App\Http\Requests\UserStoreRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Http\Requests\VoteGenreRequest;
@@ -10,6 +12,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UserController extends Controller
 {
@@ -144,6 +147,29 @@ class UserController extends Controller
             return $this->success('user is successfully vote genre', null);
 
         } catch (\Exception $e) {
+            DB::rollback();
+            throw $e;
+        }
+    }
+
+    public function userDateFilter (UserFilterRequest $request) 
+    {
+        $payload = collect($request->validated());
+        DB::beginTransaction();
+        try {
+
+            $startDate = $payload['start_date'];
+            $endDate = $payload['end_date'];
+
+            DB::commit();
+            // Set the flash message in the session
+            // session()->flash('success', 'User list is exported successfully');
+            return Excel::download(new UserExport($startDate, $endDate), 'users.xlsx');
+
+            // return $this->success('User list is exported successfully', null);
+
+
+        } catch (Exception $e) {
             DB::rollback();
             throw $e;
         }

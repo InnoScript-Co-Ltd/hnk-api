@@ -100,6 +100,7 @@ Route::middleware('jwt')->group(function () {
         Route::get('/', 'UserController@index');
         Route::post('/{id}', 'UserController@update');
         Route::delete('/{id}', 'UserController@destroy');
+        Route::post('/date/filter', 'UserController@userDateFilter');
     });
 
     Route::group(['prefix' => 'singer'], function () {
