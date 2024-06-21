@@ -152,7 +152,7 @@ class UserController extends Controller
         }
     }
 
-    public function userDateFilter (UserFilterRequest $request) 
+    public function userDateFilter(UserFilterRequest $request)
     {
         $payload = collect($request->validated());
         DB::beginTransaction();
@@ -162,12 +162,12 @@ class UserController extends Controller
             $endDate = $payload['end_date'];
 
             DB::commit();
+
             // Set the flash message in the session
             // session()->flash('success', 'User list is exported successfully');
             return Excel::download(new UserExport($startDate, $endDate), 'users.xlsx');
 
             // return $this->success('User list is exported successfully', null);
-
 
         } catch (Exception $e) {
             DB::rollback();

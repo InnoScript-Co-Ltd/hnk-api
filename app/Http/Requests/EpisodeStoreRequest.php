@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Singer;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserFilterRequest extends FormRequest
+class EpisodeStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,9 +22,13 @@ class UserFilterRequest extends FormRequest
      */
     public function rules(): array
     {
+        $singerId = implode(',', Singer::all()->pluck('id')->toArray());
+
         return [
-            'start_date' => 'required|date',
-            'end_date' => 'required|date',
+            'singer_id' => "required | in:$singerId",
+            'title' => 'required | string',
+            'url' => 'required | string',
+            'status' => 'required | in:ENABLE,DISABLE',
         ];
     }
 }

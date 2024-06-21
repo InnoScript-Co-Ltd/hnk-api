@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserFilterRequest extends FormRequest
+class EpisodeUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,8 +22,10 @@ class UserFilterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'start_date' => 'required|date',
-            'end_date' => 'required|date',
+            'title' => 'nullable',
+            'url' => 'nullable',
+            'singer_id' => 'nullable',
+            'status' => 'nullable',
         ];
     }
 }

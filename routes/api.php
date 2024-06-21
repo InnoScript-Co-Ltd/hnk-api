@@ -17,6 +17,11 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('/login', 'AdminAuthController@login');
 });
 
+Route::group(['prefix' => 'episode'], function () {
+    Route::get('/', 'EpisodeContrller@index');
+    Route::get('/{id}', 'EpisodeContrller@show');
+});
+
 Route::group(['prefix' => 'user'], function () {
     Route::post('/', 'UserController@store');
     Route::get('/{id}', 'UserController@show');
@@ -192,4 +197,9 @@ Route::middleware('jwt')->group(function () {
         Route::delete('/{id}', 'VideoUploadController@destroy');
     });
 
+    Route::group(['prefix' => 'episode'], function () {
+        Route::post('/', 'EpisodeContrller@store');
+        Route::put('/{id}', 'EpisodeContrller@update');
+        Route::delete('/{id}', 'EpisodeContrller@destroy');
+    });
 });

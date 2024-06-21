@@ -3,8 +3,8 @@
 namespace App\Exports;
 
 use App\Models\User;
-use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\Exportable;
+use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
 class UserExport implements FromQuery, WithHeadings
@@ -12,6 +12,7 @@ class UserExport implements FromQuery, WithHeadings
     use Exportable;
 
     protected $startDate;
+
     protected $endDate;
 
     public function __construct($startDate, $endDate)
@@ -31,7 +32,7 @@ class UserExport implements FromQuery, WithHeadings
         return [
             'ID',
             'Name',
-            "Phone",
+            'Phone',
             'Email',
             'Created At',
             // Add other columns you want to include in the export
