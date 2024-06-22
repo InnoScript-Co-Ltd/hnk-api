@@ -63,6 +63,22 @@ class EpisodeContrller extends Controller
         }
     }
 
+    public function findByUrl($url)
+    {
+        DB::beginTransaction();
+
+        try {
+            $episode = Episode::with(['singer'])->where(['url' => $url])->first();
+            DB::commit();
+
+            return $this->success('Episode search by url is successfully retrived', $episode);
+
+        } catch (Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
+    }
+
     public function update(EpisodeUpdateRequest $request, $id)
     {
 

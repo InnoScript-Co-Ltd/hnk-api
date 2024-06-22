@@ -20,6 +20,7 @@ Route::group(['prefix' => 'auth'], function () {
 Route::group(['prefix' => 'episode'], function () {
     Route::get('/', 'EpisodeContrller@index');
     Route::get('/{id}', 'EpisodeContrller@show');
+    Route::get('/search/{id}', 'EpisodeContrller@findByUrl');
 });
 
 Route::group(['prefix' => 'user'], function () {
@@ -87,7 +88,6 @@ Route::group(['prefix' => 'event-slider'], function () {
 });
 
 Route::middleware('jwt')->group(function () {
-
     Route::group(['prefix' => 'count'], function () {
         Route::get('/user-vote', 'DashboardController@userVotecount');
         Route::get('/user', 'DashboardController@user');
