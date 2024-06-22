@@ -17,6 +17,12 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('/login', 'AdminAuthController@login');
 });
 
+Route::group(['prefix' => 'episode'], function () {
+    Route::get('/', 'EpisodeContrller@index');
+    Route::get('/{id}', 'EpisodeContrller@show');
+    Route::get('/search/{id}', 'EpisodeContrller@findByUrl');
+});
+
 Route::group(['prefix' => 'user'], function () {
     Route::post('/', 'UserController@store');
     Route::get('/{id}', 'UserController@show');
@@ -82,7 +88,6 @@ Route::group(['prefix' => 'event-slider'], function () {
 });
 
 Route::middleware('jwt')->group(function () {
-
     Route::group(['prefix' => 'count'], function () {
         Route::get('/user-vote', 'DashboardController@userVotecount');
         Route::get('/user', 'DashboardController@user');
@@ -100,6 +105,7 @@ Route::middleware('jwt')->group(function () {
         Route::get('/', 'UserController@index');
         Route::post('/{id}', 'UserController@update');
         Route::delete('/{id}', 'UserController@destroy');
+        Route::post('/date/filter', 'UserController@userDateFilter');
     });
 
     Route::group(['prefix' => 'singer'], function () {
@@ -191,4 +197,9 @@ Route::middleware('jwt')->group(function () {
         Route::delete('/{id}', 'VideoUploadController@destroy');
     });
 
+    Route::group(['prefix' => 'episode'], function () {
+        Route::post('/', 'EpisodeContrller@store');
+        Route::put('/{id}', 'EpisodeContrller@update');
+        Route::delete('/{id}', 'EpisodeContrller@destroy');
+    });
 });

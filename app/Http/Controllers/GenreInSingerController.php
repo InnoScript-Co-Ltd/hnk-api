@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\GenreInSingerStoreRequest;
 use App\Http\Requests\GenreInSingerUpdateRequest;
 use App\Models\GenreInSinger;
+use Exception;
 use Illuminate\Support\Facades\DB;
 
 class GenreInSingerController extends Controller
