@@ -15,7 +15,7 @@ class Singer extends Model
     protected $table = 'singers';
 
     protected $fillable = [
-        'name', 'profile', 'slider_image', 'cover_photo', 'slider_description', 'detail_title', 'status',
+        'name', 'profile', 'slider_image', 'cover_photo', 'slider_description', 'detail_title', 'status', 'show_slider', 'invite_video'
     ];
 
     public function profile()

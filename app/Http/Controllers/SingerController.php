@@ -108,6 +108,12 @@ class SingerController extends Controller
                 $payload['slider_image'] = $sliderImage;
             }
 
+            if (isset($payload['invite_video'])) {
+                $inviteVideoPath = $payload['invite_video']->store('images', 'public');
+                $inviteVideo = explode('/', $inviteVideoPath)[1];
+                $payload['invite_video'] = $inviteVideo;
+            }
+
             $singer->update($payload->toArray());
 
             DB::commit();
