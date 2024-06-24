@@ -37,14 +37,14 @@ class SingerController extends Controller
         try {
 
             if (isset($payload['profile'])) {
-                $imagePath = $payload['profile']->store('images', 'public');
-                $profileImage = explode('/', $imagePath)[1];
+                $profileImagePath = $payload['profile']->store('images', 'public');
+                $profileImage = explode('/', $profileImagePath)[1];
                 $payload['profile'] = $profileImage;
             }
 
             if (isset($payload['cover_photo'])) {
-                $imagePath = $payload['cover_photo']->store('images', 'public');
-                $coverPhotoImage = explode('/', $imagePath)[1];
+                $coverPhotoImagePath = $payload['cover_photo']->store('images', 'public');
+                $coverPhotoImage = explode('/', $coverPhotoImagePath)[1];
                 $payload['cover_photo'] = $coverPhotoImage;
             }
 
@@ -91,20 +91,20 @@ class SingerController extends Controller
             $singer = Singer::findOrFail($id);
 
             if (isset($payload['profile'])) {
-                $imagePath = $payload['profile']->store('images', 'public');
-                $profileImage = explode('/', $imagePath)[1];
-                $payload['slider_image'] = $profileImage;
+                $profileImagePath = $payload['profile']->store('images', 'public');
+                $profileImage = explode('/', $profileImagePath)[1];
+                $payload['profile'] = $profileImage;
             }
 
             if (isset($payload['cover_photo'])) {
-                $imagePath = $payload['cover_photo']->store('images', 'public');
-                $coverPhotoImage = explode('/', $imagePath)[1];
+                $coverPhotoImagePath = $payload['cover_photo']->store('images', 'public');
+                $coverPhotoImage = explode('/', $coverPhotoImagePath)[1];
                 $payload['cover_photo'] = $coverPhotoImage;
             }
 
             if (isset($payload['slider_image'])) {
-                $imagePath = $payload['slider_image']->store('images', 'public');
-                $sliderImage = explode('/', $imagePath)[1];
+                $sliderImagePath = $payload['slider_image']->store('images', 'public');
+                $sliderImage = explode('/', $sliderImagePath)[1];
                 $payload['slider_image'] = $sliderImage;
             }
 

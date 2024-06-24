@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('singers', function (Blueprint $table) {
-            $table->string('show_slider')->default("DISABLE");
+            $table->string('show_slider')->default('DISABLE');
             $table->string('invite_video')->nullable()->default(null);
         });
     }
@@ -23,7 +23,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('singers', function (Blueprint $table) {
-            $table->string('show_slider')->default("DISABLE");
+            $table->string('show_slider')->default('DISABLE');
         });
     }
 };
