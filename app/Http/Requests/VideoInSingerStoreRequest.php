@@ -23,7 +23,7 @@ class VideoInSingerStoreRequest extends FormRequest
     {
         return [
             'singer_id' => 'required',
-            'video' => 'required | string',
+            'video' => 'required | file',
             'title' => 'required | string',
             'album_name' => 'required',
         ];

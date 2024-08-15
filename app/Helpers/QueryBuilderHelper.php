@@ -15,7 +15,7 @@ class QueryBuilderHelper
         $requestQuery = app('request')->query();
 
         $order = isset($requestQuery['order']) ? $requestQuery['order'] : 'id';
-        $sort = isset($requestQuery['sort']) ? $requestQuery['sort'] : 'ASC';
+        $sort = isset($requestQuery['sort']) ? $requestQuery['sort'] : 'DESC';
 
         return $builder->orderBy($order, $sort);
     }

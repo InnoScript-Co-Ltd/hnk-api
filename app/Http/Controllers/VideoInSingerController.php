@@ -61,17 +61,13 @@ class VideoInSingerController extends Controller
     public function store(VideoInSingerStoreRequest $request)
     {
         $payload = collect($request->validated());
-
-        info($payload);
         try {
 
-            // $videoPath = $payload['video'];
-            // $originName = $videoPath->getClientOriginalName();
-            // $extension = $videoPath->getClientOriginalExtension();
-            // $fileName = pathinfo($originName, PATHINFO_FILENAME);
-            // $fileName = $fileName.'_'.uniqid().'.'.$extension;
-            // $videoPath->move(public_path('video'), $fileName);
-            // $payload['video'] = $fileName;
+            if (isset($payload['video'])) {
+                $videoPath = $payload['video']->store('images', 'public');
+                $video = explode('/', $videoPath)[1];
+                $payload['video'] = $video;
+            }
 
             $videoInSinger = VideoInSinger::create($payload->toArray());
             DB::commit();
@@ -80,7 +76,6 @@ class VideoInSingerController extends Controller
 
         } catch (\Exception $e) {
             DB::rollback();
-            info($e);
             throw $e;
         }
     }
@@ -105,6 +100,7 @@ class VideoInSingerController extends Controller
 
         $payload = collect($request->validated());
         DB::beginTransaction();
+
         try {
 
             $videoInSinger = VideoInSinger::findOrFail($id);
